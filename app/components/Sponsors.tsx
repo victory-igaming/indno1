@@ -1,40 +1,92 @@
+"use client";
 
-  import NextImage from 'next/image';
-  
-  const sponsors = [
-    { id: '1', title: 'PLAY', image: '/images/play.png', icon: '🎰'},
-    { id: '2', title: 'PG', image: '/images/pg.png', icon: '🎰'},
-    { id: '3', title: 'M', image: '/images/m.png', icon: '🎰'},
-    // { id: '4', title: 'JILI', image: '/images/jili.png', icon: '🎰'},
-    // { id: '5', title: 'JDB', image: '/images/jdb.png', icon: '🎰'},
-    // { id: '6', title: 'Fire', image: '/images/H.png', icon: '🔥'},
-    // { id: '7', title: 'A', image: '/images/A.png', icon: '🎰'},
-    // { id: '8', title: 'cq9', image: '/images/cq9.png', icon: '🎰'},
-    // { id: '9', title: 'BG GAMING', image: '/images/pg.png', icon: '🎰'},
-    // { id: '10', title: 'Stars', image: '/images/start.png', icon: '⭐'},
-    // { id: '11', title: 'spribe', image: '/images/spribe.png', icon: '⭐'},
-  ];
+import { useState, useEffect, useMemo } from 'react';
+import qs from 'qs';
+import { strapiFetch, getStrapiMedia } from "@/services/strapi";
+import Carousel from "framer-motion-carousel";
+import Link from 'next/link';
 
+// 1. Memoize query to prevent unnecessary re-creations
+const SPONSOR_QUERY = qs.stringify({
+  populate: {
+    logo: { populate: '*' },
+  },
+  sort: ['updatedAt:desc'],
+  status: 'published',
+  locale: ['en'],
+}, { encodeValuesOnly: true });
 
 export default function Sponsors() {
-  return (
-    <>
-    <div className="card">
-              <h3 className="card-title">Sponsors</h3>
-              <div className="sponsors-grid">
-                {sponsors.map((sponsor, i) => (
-                  <div key={i} className="sponsor-box" >
-                     <NextImage  src={sponsor.image}  alt={sponsor.title}   width={100}   height={50}   />
-                  </div>
-                ))}
-              </div>
-              <div className="dots">
-                <div className="dot dot-active"></div>
-                <div className="dot dot-inactive"></div>
-                <div className="dot dot-inactive"></div>
-              </div>
-            </div>
-    </>
-  )
+  const [data, setData] = useState<any[] | null>(null);
+  const [error, setError] = useState(false);
 
+  useEffect(() => {
+    // AbortController is good practice for "one-time" fetches to prevent memory leaks
+    const controller = new AbortController();
+
+    async function fetchData() {
+      try {
+        const endpoint = `sponsors?${SPONSOR_QUERY}`;
+        const response = await strapiFetch(endpoint);
+        
+        if (response?.data) {
+          setData(response.data);
+        }
+      } catch ({err}:any) {
+        if (err.name !== 'AbortError') {
+          console.error("Fetch error:", err);
+          setError(true);
+        }
+      }
+    }
+
+    fetchData();
+    return () => controller.abort();
+  }, []);
+
+  // 2. Handling states for React 19
+  if (error) return null; // Or a simple error message
+  if (!data) return <div className="p-4 text-center">Loading...</div>;
+  if (data.length === 0) return null;
+
+  return (
+    <div className="card">
+      <h3 className="card-title text-xl font-bold mb-4">Sponsors</h3>
+      <div className="sponsors-grid">
+        {/* Note: Ensure Carousel is compatible with React 19 Ref standards */}
+        <Carousel 
+          autoPlay={true} 
+          interval={3000} 
+          loop={true} 
+          renderArrowLeft={() => null} 
+          renderArrowRight={() => null} 
+          renderDots={() => null}
+        >
+          {data.map((provider: any) => {
+            const imageUrl = getStrapiMedia(provider.logo?.url);
+            
+            return (
+              <div 
+                key={provider.documentId || provider.id} 
+                className="flex justify-center items-center h-full"
+              >
+                <Link href={
+                `/sponsors/${provider.seourl}`
+              }>
+                <img 
+                  src={imageUrl ?? "/images/placeholder.png"} 
+                  alt={provider.title || "Sponsor"} 
+                  width={200} 
+                  height={100} 
+                  className="object-contain"
+                  // Next.js 16/React 19 optimization:
+                  loading="lazy" 
+                /></Link>
+              </div>
+            );
+          })}
+        </Carousel>
+      </div>
+    </div>
+  );
 }

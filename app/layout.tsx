@@ -11,15 +11,15 @@ import Footer from './components/Footer';
 export const metadata: Metadata = {
   title: {
     default: 'IND NO1 - Most Trusted Gaming & Betting Website', // Fallback/default title
-    template: '%s | My Awesome Website', // Template for child pages
+    template: '%s | IND NO1 - Most Trusted Gaming', // Template for child pages
   },
   description: 'Experience the thrill of gaming with Cricket Peak Daily Glory Bonus 25%',
-  keywords: ['next.js', 'react', 'web development', 'keywords here'], // Shared keywords
+  keywords: ['next.js', 'react', 'web development', 'Trusted Gaming', 'Betting Website', 'India', 'India No 01'], // Shared keywords
   openGraph: {
     title: 'IND NO1 - Most Trusted Gaming & Betting Website',
     description: 'Experience the thrill of gaming with Cricket Peak Daily Glory Bonus 25%A shared description.',
-    url: 'https://mywebsite.com',
-    siteName: 'My Awesome Website',
+    url: 'https://indno1.win',
+    siteName: 'IND NO1 - Most Trusted Gaming & Betting Website',
   },
 };
 

@@ -635,6 +635,13 @@
       border-radius: 9999px;
     }
 
+    .section-icon2 {
+      width: auto;
+      height: 4rem;
+      margin-top: -9rem;
+      border-radius: 9999px;
+    }
+
     .trmsection-content {
       list-style: none;
     }

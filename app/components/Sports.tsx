@@ -7,12 +7,8 @@ export default function Sports() {
                 <h3 className="section-title">🎰 CASINO</h3>
                 <div className="section-content">
                   <p className="section-text">veniam dolore consectetur lorem<br/>aliqua ad dolor minim adipiscing</p>
-                  <div className="section-icon" ><NextImage 
-                          src="/images/casino_1.png" 
-                          alt="Company Logo" 
-                          width={200} 
-                          height={200} 
-                        />
+                  <div className="section-icon2" >
+                    <NextImage src="/images/casino_1.png"  alt="Company Logo"  width={164}  height={164} />
                         </div>
                 </div>
               </div>
@@ -20,13 +16,9 @@ export default function Sports() {
                 <h3 className="section-title">⚽ SPORTS</h3>
                 <div className="section-content">
                   <p className="section-text">veniam dolore consectetur lorem<br/>aliqua ad dolor minim adipiscing</p>
-                  <div className="section-icon" ><NextImage 
-                          src="/images/sports_1.png" 
-                          alt="Company Logo" 
-                          width={200} 
-                          height={200} 
-                        />
-                        </div>
+                  <div className="section-icon2" >
+                    <NextImage src="/images/sports_1.png"  alt="Company Logo"  width={164}  height={164} />                   
+                  </div>
                 </div>
               </div>
             </div>

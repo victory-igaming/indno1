@@ -5,12 +5,10 @@ import NextImage from 'next/image';
 import Carousel from "framer-motion-carousel";
 
   const liveCarousel = [
-    { id: '1', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.png', icon: '🎰'},
-    { id: '5', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.png', icon: '🎰'},
-    { id: '2', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.png', icon: '🎰'},
-     { id: '6', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.png', icon: '🎰'},
-    { id: '3', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.png', icon: '🎰'},
-    { id: '4', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.png', icon: '🎰'}, 
+    { id: '1', title: 'IndNO01 Live Casino Carousel', image: '/images/slider.jpg', icon: '🎰'},
+    { id: '5', title: 'IndNO01 Live Casino Carousel', image: '/images/slider2.jpg', icon: '🎰'},
+    { id: '2', title: 'IndNO01 Live Casino Carousel', image: '/images/slider3.png', icon: '🎰'},
+
    
   ];
 
@@ -31,7 +29,7 @@ export default function Hero() {
       </Carousel>
     
 
-               <div className="hero-overlay"></div>
+               {/* <div className="hero-overlay"></div> */}
             </div>
   )
 }

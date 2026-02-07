@@ -1,4 +1,3 @@
-'use client';
 
 // import ClientRouter from './components/ClientRouter';
 
@@ -6,23 +5,23 @@
 //   return <ClientRouter />;
 // }
 
-import Herobanner from './components/Hero';
-import Featuredgames from './components/FeaturedGames';
-import Sports from './components/Sports';
-import Featuredsports from './components/FeaturedSports';
-import LiveSports from './components/LiveSports';
-import LiveCasino from './components/LiveCasino';
-import Slots from './components/Slots';
-import LotteryDraw from './components/LotteryDraw';
-import Provider from './components/Provider';
+import Herobanner from '@/components/Hero';
+import Featuredgames from '@/components/FeaturedGames';
+import Sports from '@/components/Sports';
+import Featuredsports from '@/components/FeaturedSports';
+import LiveSports from '@/components/LiveSports';
+import LiveCasino from '@/components/LiveCasino';
+import Slots from '@/components/Slots';
+import LotteryDraw from '@/components/LotteryDraw';
+import Provider from '@/components/Provider';
 
 
 export default function Home() { 
  
  return (
           <>
-               
-                 {/* Hero Banner */}
+
+                  {/* Hero Banner */}
                   <Herobanner/>
 
                   {/* Featured Games */}
@@ -33,7 +32,7 @@ export default function Home() {
 
 
                     {/* Featured Sports */}
-                     <Featuredsports/>
+                    <Featuredsports/>
 
                     {/* Live Sports */}
                     <LiveSports/>
@@ -43,17 +42,20 @@ export default function Home() {
                     <LiveCasino/>
 
                     
-                     {/* Slots */}
-                     <Slots/>
+                    {/* Slots */}
+                    <Slots/>
 
 
-                     {/* Upcoming Lottery Draw */}
-                     <LotteryDraw/>
+                    {/* Upcoming Lottery Draw */}
+                    <LotteryDraw/>
 
 
 
                     {/* Provider Logos */}
-                    <Provider/>    
+                     <div className="providers">
+                    <Provider Classname="provider-logo"/> 
+                     </div>
+                       
 
           </>    
   )

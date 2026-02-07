@@ -7,7 +7,7 @@ const imageField = image;
 const imageUrl =  getStrapiMedia(imageField?.url);
 const imageAlt = imageField?imageField.alternativeText:comTitle;
   return (
-      <div className="" >
+      <div className="mb-2.5" >
       <h2>{name}</h2>
               
   <div className="float-right mr-12 mb-12 "> 
@@ -24,7 +24,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
                     </div>
                   ))}               
                </div>  
-                 
+          <div className="clear-both"></div>        
      </div> 
                 
 

@@ -64,7 +64,7 @@ export default async function Faq() {
   
   // 2. Access the fields from inside data
   const { title, description, seourl, faqbody } = response.data;
- console.log(faqbody);
+ //console.log(faqbody);
 
  // Loading Category
   const queryCat = qs.stringify({
@@ -80,7 +80,7 @@ export default async function Faq() {
 const catfinalUrl = `faqtypes?${queryCat}`;
 const  responsecat = await strapiFetch(catfinalUrl);
 const faqList  = responsecat.data;
-console.log(faqList);
+//console.log(faqList);
 
 
 const faqcategories = faqList.map((item: any) => ({
@@ -169,27 +169,9 @@ const faqalls = faqbody.map((fq: any) => ({
           })}
           </div>
 
+         
           {/* Contact CTA */}
-          <div className="contact-cta">
-            <h2 className="cta-title">Still Have Questions?</h2>
-            <p className="cta-text">
-              Our support team is available 24/7 to help you with any questions or concerns
-            </p>
-            <div className="cta-buttons">
-              <button className="cta-button">
-                <span>💬</span>
-                Start Live Chat
-              </button>
-              <button className="cta-button">
-                <span>📧</span>
-                Email Support
-              </button>
-              <button className="cta-button">
-                <span>📞</span>
-                Call Us
-              </button>
-            </div>
-          </div>
+         
                  
           </>    
   )

@@ -12,6 +12,7 @@ export async function strapiFetch(path: string, queryObj: object = {}) {
 */
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 const baseUrl = "http://localhost:1337";
+const TOKEN = process.env.API_TOKEN_SALT;
 
 // app/services/strapi.tsx
 export async function strapiFetch(path: string) {
@@ -46,7 +47,14 @@ export async function strapiUrlImage(path: string) {
   const fullUrl = `${baseUrl}/api/${path}`;
 
   try {
-    const res = await fetch(fullUrl, { cache: 'no-store' });
+    const res = await fetch(fullUrl, {  
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    cache: 'no-store' 
+  }
+  );
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
@@ -74,7 +82,14 @@ export function getStrapiMedia(url: string | null) {
 
 export async function getBlogByDocumentId(docId: string) {
   const baseUrl = "http://localhost:1337";
-  const res = await fetch(`${baseUrl}/api/blogs/${docId}?populate=deep`); 
+  const res = await fetch(`${baseUrl}/api/blogs/${docId}?populate=deep`, {  
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    cache: 'no-store' 
+  }
+  ); 
   // Note: Using ?populate=deep or specific populate fields to get blogbody and faqBody
   const json = await res.json();
   return json.data;
@@ -89,7 +104,14 @@ export async function getBlogBySlug(slug: string) {
   //const query = `/api/blogs?filters[slug][$eq]=${slug}&populate=*`;
   const query = `/api/blogs?filters[seoUrl][$eq]=${encodeURIComponent(slug)}&populate=*`;
   
-  const res = await fetch(`${baseUrl}${query}`, { cache: 'no-store' });
+  const res = await fetch(`${baseUrl}${query}`,{  
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    cache: 'no-store' 
+  }
+  );
  console.log(res);
   if (!res.ok) {
     const errorData = await res.json();
@@ -105,9 +127,14 @@ export async function getAllCategories() {
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
   
   // We use populate=* if you want to count how many blogs are in each category
-  const res = await fetch(`${baseUrl}/api/gamepages?populate=*`, { 
+  const res = await fetch(`${baseUrl}/api/gamepages?populate=*`, {  
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      "Content-Type": "application/json",
+    },
     cache: 'no-store' 
-  });
+  }
+  );
 
   if (!res.ok) {
     throw new Error('Failed to fetch categories');

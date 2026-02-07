@@ -1,19 +1,11 @@
 
+  
+  import { strapiFetch,getStrapiMedia } from "../services/strapi";
+
   import NextImage from 'next/image';
-  
-  
-  const ChevronRight = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6"></polyline>
-  </svg>
-);
 
-const ChevronLeft = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6"></polyline>
-  </svg>
-);
 
+  import qs from 'qs';
 
   const liveSlot = [
     { id: '1', title: 'Live Casino', image: '/images/110.png', icon: '🎰'},
@@ -26,28 +18,54 @@ const ChevronLeft = () => (
   ];
 
 
-export default function Slots() {
+export default async function Slots() {
+
+
+  // Loading Category
+    const queryCat = qs.stringify({
+      pagination: {
+      limit: 6,
+      },
+      populate: {
+        iamge: { populate: '*' },       
+      },
+      filters: {
+        gamecategoties: {
+          seourl: {
+            $eq: 'casino',
+          },
+        },
+      },
+      sort: ['updatedAt:desc'],
+      status: 'published',
+      locale: ['en'],
+    }, { encodeValuesOnly: true });
+  
+  const catfinalUrl = `playgames?${queryCat}`;
+  const  responsecat = await strapiFetch(catfinalUrl);
+  const liveCasinoList  = responsecat.data;
+  //console.log(liveCasinoList); 
+
+
+
   return (
     <div className="live-section">
               <div className="section-header">
                 <h3 className="section-title">🎰 Slots</h3>
-                <div className="section-actions">
-                  <button className="all-btn">ALL</button>
-                  <span className="nav-arrow"><ChevronLeft /></span>
-                  <span className="nav-arrow"><ChevronRight /></span>
-                </div>
+               
               </div>
               <div className="casino-grid">
-                  {liveSlot.map((lcasino,i) => (
-                  <div key={i} className="casino-item">
-                    <NextImage 
-                                                                          src={lcasino.image} 
-                                                                          alt={lcasino.title} 
-                                                                          width={340} 
-                                                                          height={180} 
-                                                                        />
-                  </div>
-                ))}
+                   {liveCasinoList.map((lcasino: any, kkids: any) => {
+
+           const imageUrl = getStrapiMedia(lcasino.iamge?.url);
+           
+            return(
+            
+            <div key={kkids} className="casino-item max-h-50" >
+           <img  src={imageUrl??""}  alt={lcasino.title}  width={200}  height={200}   />
+                  </div>) 
+          })}
+               
               </div>
             </div>
   )
