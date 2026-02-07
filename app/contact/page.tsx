@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-
+import Link from 'next/link';
 
 export default function Contatus() { 
      //const articles = await getArticles();
@@ -17,20 +17,43 @@ export default function Contatus() {
     message: ''
   });
 
-  const handleChange = ({e}:any) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
 
-  const handleSubmit = ({e}:any) => {
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      alert('Email sent successfully!');
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Reset form
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Failed to connect to the server.');
+  }
+};
+
+  const handleSubmitOld = ({e}:any) => {
     e.preventDefault();
     alert('Thank you for contacting us! We will get back to you soon.');
   };
 
   const contactInfo = [
-    { icon: '📧', title: 'Email Us', detail: 'support@indno1.com', subdDetail: 'We reply within 24 hours' },
-    { icon: '📞', title: 'Call Us', detail: '+91 1800-XXX-XXXX', subdDetail: 'Mon-Sun, 24/7 Available' },
-    { icon: '💬', title: 'Live Chat', detail: 'Chat with us now', subdDetail: 'Average response time: 2 min' },
-    { icon: '📍', title: 'Visit Us', detail: 'Mumbai, Maharashtra', subdDetail: 'India' },
+    { icon: '📧', title: 'Email Us', detail: 'support@indno1.com', subdDetail: 'We reply within 24 hours', extanalLink: '' },
+    { icon: '📞', title: 'Call Us', detail: '+94 771 007 278', subdDetail: 'Mon-Sun, 24/7 Available' , extanalLink: 'https://wa.me/+94771007278' },
+    { icon: '💬', title: 'Live Chat', detail: 'Chat with us now', subdDetail: 'Average response time: 2 min' , extanalLink: 'https://direct.lc.chat/19431978/' },
+   
   ];
 
   const faqs = [
@@ -47,10 +70,27 @@ export default function Contatus() {
           <div className="contact-grid">
             {contactInfo.map((info, index) => (
               <div key={index} className="contact-card">
+                 {
+                 info.extanalLink || info.extanalLink.length >= 0 ? (
+                  <>
+                   <Link className="nav-link" href={info.extanalLink} target="_blank" rel="noopener noreferrer" >
                 <div className="contact-icon">{info.icon}</div>
                 <div className="contact-title">{info.title}</div>
                 <div className="contact-detail">{info.detail}</div>
                 <div className="contact-subdetail">{info.subdDetail}</div>
+                </Link>
+                  </>
+                 ) : (
+                  <>
+                   <div className="contact-icon">{info.icon}</div>
+                <div className="contact-title">{info.title}</div>
+                <div className="contact-detail">{info.detail}</div>
+                <div className="contact-subdetail">{info.subdDetail}</div>
+                  </>
+
+                 )
+                 }
+               
               </div>
             ))}
           </div>
@@ -153,25 +193,8 @@ export default function Contatus() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>      
 
-          {/* FAQ Section */}
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          <p className="section-subtitle">Quick answers to common questions</p>
-          <div className="faq-container">
-            {faqs.map((faq, index) => (
-              <div key={index} className="faq-item">
-                <div className="faq-question">{faq.question}</div>
-                <div className="faq-answer">{faq.answer}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Map Section */}
-          <div className="map-section">
-            <h2 className="info-title" style={{ textAlign: 'center', marginBottom: '2rem' }}>Our Location</h2>
-            <div className="map-placeholder">🗺️</div>
-          </div>
          
           </>    
   )

@@ -246,7 +246,8 @@
     }
 
     .bonus-card {
-      background: linear-gradient(to bottom right, #ca8a04, #a16207);
+      /* background: linear-gradient(to bottom right, #ca8a04, #a16207); */
+      background: linear-gradient(to bottom right, #3d2415, #2a1810);
       border-radius: 0.75rem;
       padding: 1rem;
       text-align: center;
@@ -1335,7 +1336,7 @@
     /* Contact -> Contact Card */
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
       margin-bottom: 4rem;
     }
@@ -2679,6 +2680,7 @@
      /* -------------------------------------  media ---------------------------------- */
    
     @media (max-width: 1024px) {
+
       .main-layout {
         flex-direction: column;
       }
@@ -2704,6 +2706,7 @@
       .footer-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
     @media (max-width: 640px) {
@@ -2727,4 +2730,35 @@
       .footer-grid {
         grid-template-columns: 1fr;
       }
+
+      nav .nav-menu {
+        display: none;
+      }
+
+      .sidebar{
+        position: relative;
+        display: none;
+      }
+
+      .section-card{
+        padding: 1rem;
+        height: 180px;
+      }
+
+      .section-text{
+        display: none;
+      }
+      
+      .section-title{
+        font-size: 1rem;
+      }
+
+      .section-icon2{
+        margin-top: -40px;
+        margin-right: -20px;
+      }
+
+
     }
+
+  

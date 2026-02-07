@@ -1,4 +1,5 @@
 import NextImage from 'next/image';
+import { strapiFetch,getStrapiMedia } from "@/services/strapi";
 
   const featurSport = [
     { title: 'RACING', draw: '/images/game_1.png', icon: '🎰', details: 'veniam dolore consectetur lore aliqua ad dolor minim adipiscing A complete log of this run can be foundA complete log of this run can be found' },
@@ -8,32 +9,48 @@ import NextImage from 'next/image';
   ];
 
 
-export default function FeaturedSports() {
+export default function FeaturedSports({ sportbanner }: { sportbanner: any[] }) {
+
+  console.log("Sportbanner",sportbanner); 
+
+
   return (
-    <>
-     <div className="racing-grid">
-              {featurSport.map((sport,i) => (
-                <div key={i} className="racing-card">
-                  <div className="racing-title">{sport.icon} {sport.title}</div>
+      <div className="racing-grid">
+      {sportbanner.map((sport) => (
+
+         <div key={sport.id} className="racing-card">
+                  <div className="racing-title"> {sport.icon?.url && (
+            <NextImage 
+              src={`${getStrapiMedia(sport.icon?.url)}`} 
+              alt={sport?.alternativeText || sport?.title || "Sport image"}
+              width={20} 
+              height={20}
+              unoptimized // Bypasses the Private IP error we saw earlier
+            />
+          )} {sport.title}</div>
                   <div className="flex-1 racing-img">
-                  <NextImage 
-                                            src={sport.draw} 
-                                            alt={sport.title}
-                                            width={80} 
-                                            height={80} 
-                                          />
+                 {sport.image?.url && (
+            <NextImage 
+              src={`${getStrapiMedia(sport.image?.url)}`} 
+              alt={sport?.alternativeText || sport?.title || "Sport image"}
+              width={80}
+              height={80}
+              unoptimized
+            />
+          )}
+
                                           </div>
 <div className="flex-1 space-y-4">
        
         <p className="text-gray-300">
-         {sport.details}
+         {sport.description}
         </p>
       
       </div>
                                 
                 </div>
-              ))}
-            </div>
-    </>
-  )
+                
+      ))}
+    </div>
+  );
 }

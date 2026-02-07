@@ -1,56 +1,15 @@
-
-import NextImage from 'next/image';
-  
-import { strapiFetch,getStrapiMedia } from "../services/strapi";
-import GameSlots from '../components/blocks/GameSlots';
-
-import ArticalCard  from "../components/blocks/ArticalCard";
-import ImgLftCard  from "../components/blocks/ImgLftCard";
-import ImgRthCard  from "../components/blocks/ImgRthCard";
-import Faqcard  from "../components/blocks/Faqcard";
-
-
-import TipwarnCard  from "../components/blocks/TipwarnCard";
-import TipsuccessCard  from "../components/blocks/TipsuccessCard";
-import TipdangerCard  from "../components/blocks/TipdangerCard";
-
+import { useState, useEffect, useMemo } from 'react';
+import { strapiFetch,getStrapiMedia } from "@/services/strapi";
+import Link from 'next/link';
 import qs from 'qs';
-  
-  const ChevronRight = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6"></polyline>
-  </svg>
-);
 
-const ChevronLeft = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6"></polyline>
-  </svg>
-);
-
-  
-  const liveCasino = [
-    { id: '1', title: 'Live Casino', image: '/images/32.png', icon: '🎰'},
-    { id: '2', title: 'Live Casino', image: '/images/35_en.png', icon: '🎰'},
-    { id: '3', title: 'Live Casino', image: '/images/42.png', icon: '🎰'},
-    { id: '4', title: 'Live Casino', image: '/images/48_en.png', icon: '🎰'},
-    { id: '5', title: 'Live Casino', image: '/images/75.png', icon: '🎰'},
-    { id: '6', title: 'Live Casino', image: '/images/110.png', icon: '🎰'},
-   
-  ];
-
-
-  
-
-export default async function LiveCasino() {
-
- // Loading Category
+  // Loading Category
   const queryCat = qs.stringify({
     pagination: {
     limit: 6,
     },
     populate: {
-      iamge: { populate: '*' },       
+      gameicon: { populate: '*' },       
     },
     filters: {
       gamecategoties: {
@@ -64,9 +23,47 @@ export default async function LiveCasino() {
     locale: ['en'],
   }, { encodeValuesOnly: true });
 
-const catfinalUrl = `playgames?${queryCat}`;
-const  responsecat = await strapiFetch(catfinalUrl);
-const liveCasinoList  = responsecat.data;
+
+export default function LiveCasino() {
+
+  const [data, setData] = useState<any[] | null>(null);
+  const [error, setError] = useState(false);
+  
+    useEffect(() => {
+            // AbortController is good practice for "one-time" fetches to prevent memory leaks
+            const controller = new AbortController();
+        
+            async function fetchData() {
+              try {
+                  const qeryResponce = `playgames?${queryCat}`;
+                  const  response = await strapiFetch(qeryResponce);
+                
+                if (response?.data) {
+                  setData(response.data);
+                }
+  
+              } catch ({err}:any) {
+                if (err.name !== 'AbortError') {
+                  console.error("Fetch error:", err);
+                  setError(true);
+                }
+              }
+            }
+        
+            fetchData();
+            return () => controller.abort();
+          }, []);
+    
+    
+      // 2. Handling states for React 19
+      if (error) return null; // Or a simple error message
+      if (!data) return <div className="p-4 text-center">Loading...</div>;
+      if (data.length === 0) return null;
+
+
+
+
+const liveCasinoList  = data;
 //console.log(liveCasinoList); 
 
 
@@ -81,12 +78,14 @@ const liveCasinoList  = responsecat.data;
               <div className="casino-grid">
                 {liveCasinoList.map((lcasino: any, kkids: any) => {
 
-           const imageUrl = getStrapiMedia(lcasino.iamge?.url);
+           const imageUrl = getStrapiMedia(lcasino.gameicon?.url);
            
             return(
             
             <div key={kkids} className="casino-item max-h-50" >
+               <Link className="nav-link" href={`/playgame/${lcasino.seourl}`} key={lcasino.id} >
            <img  src={imageUrl??""}  alt={lcasino.title}  width={200}  height={200}   />
+           </Link>
                   </div>) 
           })}
 

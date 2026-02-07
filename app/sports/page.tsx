@@ -109,7 +109,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
                               
                             {playgames.map((lcasino: any,idx: any) => {
                              
-                              return <GameSlots key={`gmslt-${idx}`} title={lcasino.title}  image={lcasino.iamge}   />   ;
+                              return <GameSlots key={`gmslt-${idx}`} title={lcasino.title} seourl={lcasino.seourl}  image={lcasino.gameicon}   />   ;
                             })}
 
                            

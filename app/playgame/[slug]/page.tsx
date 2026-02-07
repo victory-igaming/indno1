@@ -1,9 +1,12 @@
 
 import { getBlogBySlug,getStrapiMedia,strapiFetch } from "@/services/strapi";
 
+
 import ArticalCard  from "@/components/blocks/ArticalCard";
 import ImgLftCard  from "@/components/blocks/ImgLftCard";
 import ImgRthCard  from "@/components/blocks/ImgRthCard";
+
+
 
 import TipwarnCard  from "@/components/blocks/TipwarnCard";
 import TipsuccessCard  from "@/components/blocks/TipsuccessCard";
@@ -37,17 +40,15 @@ const query = qs.stringify({
       $eq: encodeURIComponent(slug),
     },
   },
-  fields: ['name', 'description', 'seourl', 'createdAt', 'publishedAt', 'updatedAt'],
   populate: {
-    logo: { populate: '*' },
-    heroimage: { populate: '*' },
+    gameicon: { populate: '*' },
     gamecategoties: { populate: '*' },
     bodysponce: { populate: '*' },
    
-  },
+  }
 }, { encodeValuesOnly: true });
 
-const finalUrl = `sponsors?${query}`;
+const finalUrl = `playgames?${query}`;
 //console.log(`response ${finalUrl}`);
 const response = await strapiFetch(finalUrl);
 //const response = await getBlogBySlug(slug);
@@ -56,11 +57,11 @@ const response = await strapiFetch(finalUrl);
 if (!response || !response.data?.[0]) {
   return <div>Loading or Error...</div>; 
 }
-const { name, description, logo, heroimage, bodysponce} = response.data?.[0];
+const { gamename, description, gameicon, heroimage, bodysponce} = response.data?.[0];
 //const myData = response.data;
 
-const comTitle = `Hot Indno 01 ${name}`;
-const imageField = heroimage?heroimage:logo;
+const comTitle = `Hot Indno 01 ${gamename}`;
+const imageField = heroimage?heroimage:gameicon;
 const imageUrl = getStrapiMedia(imageField?.url);
 const imageAlt = imageField?imageField.alternativeText:comTitle;
 
@@ -75,7 +76,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
         </section>
 
           <div className="intro-box">
-            <h1> Indno1 Game Sponsors  {name}</h1>
+            <h1> Indno1 Game Sponsors  {gamename}</h1>
             <p className="intro-text">
            {description}
             </p>

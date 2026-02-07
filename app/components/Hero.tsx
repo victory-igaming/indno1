@@ -1,7 +1,7 @@
 "use client";
 
 import NextImage from 'next/image';
-
+import { strapiFetch,getStrapiMedia } from "@/services/strapi";
 import Carousel from "framer-motion-carousel";
 
   const liveCarousel = [
@@ -12,19 +12,45 @@ import Carousel from "framer-motion-carousel";
    
   ];
 
-export default function Hero() {
-  return (
-    <div className="hero-banner">
-      <Carousel autoPlay={true} interval={3000} loop={true} >          
-           {liveCarousel.map((item, i) => (
-          <NextImage  src={item.image} 
-              alt={item.title} 
+  export interface StrapiImage {
+  url: string;
+  alternativeText?: string | null;
+  width?: number;
+  height?: number;
+}
+
+export interface MainSliderItem {
+  id: number;
+  name: string;
+  description: string;
+  image: StrapiImage; // This matches your JSON
+}
+
+interface HerobannerProps {
+  slides: MainSliderItem[];
+}
+
+const Hero = ({ slides }: HerobannerProps) => {
+   console.log("slides",slides); 
+  return (    
+   
+    <div className="hero-banner ">
+      <Carousel autoPlay={true} interval={3000} loop={true} >   
+
+        {slides.map((slide: any, sids: any) => {        
+        const imageUrl = getStrapiMedia(slide.image?.url);        
+        return(  
+      <section className="max-h-100 overflow-hidden">              
+       <NextImage  src={imageUrl??""} 
+              alt={slide?.alternativeText || slide?.title || "Sport image"} 
               width={1360} 
               height={414} 
-              key={i}
-            />
-
-             ))}
+              key={sids}
+              unoptimized
+            />         
+       </section> 
+        ) 
+      })}   
 
       </Carousel>
     
@@ -33,3 +59,6 @@ export default function Hero() {
             </div>
   )
 }
+
+
+export default Hero;
