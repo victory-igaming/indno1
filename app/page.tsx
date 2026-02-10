@@ -8,7 +8,7 @@ import Herobanner from '@/components/Hero';
 import Featuredgames from '@/components/FeaturedGames';
 import Sports from '@/components/Sports';
 import Featuredsports from '@/components/FeaturedSports';
-import LiveSports from '@/components/LiveSports';
+import SportsTabs from '@/components/sporttab';
 import LiveCasino from '@/components/LiveCasino';
 import Slots from '@/components/Slots';
 import LotteryDraw from '@/components/LotteryDraw';
@@ -70,10 +70,10 @@ export default function Home() {
     const featuregame = data?.data.Featuregame;
     
     //const { title, mainslider, sportbody} = homeList?.data;
-    console.log("data : ", data?.data); 
-    console.log(" mainslider : ", sliderImages);
-    console.log(" sportbody : ", sportbodyImages);
-    console.log(" featuregame : ", featuregame);
+    //console.log("data : ", data?.data); 
+    //console.log(" mainslider : ", sliderImages);
+    //console.log(" sportbody : ", sportbodyImages);
+    //console.log(" featuregame : ", featuregame);
 
 return (
           <>
@@ -92,7 +92,7 @@ return (
                     <Featuredsports sportbanner={sportbodyImages || []}/>
 
                     {/* Live Sports */}
-                    <LiveSports/>
+                    <SportsTabs/>
 
 
                     {/* Live Casino */}

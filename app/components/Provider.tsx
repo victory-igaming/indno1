@@ -31,11 +31,11 @@ import { motion } from "framer-motion";
       }, { encodeValuesOnly: true });
 
 
-const Marquee = ({ children, speed = 20 }: { children: React.ReactNode, speed?: number }) => {
+const Marquee = ({ children, speed = 300 }: { children: React.ReactNode, speed?: number }) => {
   return (
-    <div className="flex overflow-hidden select-none gap-10">
+    <div className="mx-auto max-w-full w-full overflow-hidden select-none bg-transparent">
       <motion.div
-        className="flex shrink-0 items-center justify-around gap-10 min-w-full"
+        className="flex shrink-0 items-center gap-10 pr-10"
         animate={{
           x: ["0%", "-100%"],
         }}
@@ -46,25 +46,11 @@ const Marquee = ({ children, speed = 20 }: { children: React.ReactNode, speed?: 
         }}
       >
         {/* Render children twice for a seamless loop */}
-        {children}
-        {children}
+       <div className="flex shrink-0 items-center gap-10">{children}</div>
+       <div className="flex shrink-0 items-center gap-10">{children}</div>
       </motion.div>
       
-      {/* Second set for the infinite effect */}
-      <motion.div
-        className="flex shrink-0 items-center justify-around gap-10 min-w-full"
-        animate={{
-          x: ["0%", "-100%"],
-        }}
-        transition={{
-          duration: speed,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-      >
-        {children}
-        {children}
-      </motion.div>
+     
     </div>
   );
 };
@@ -114,11 +100,13 @@ export default function Provider({Classname}: any) {
            const imageUrl = getStrapiMedia(pravidor.logo?.url);
             return(  
             
-            <div key={kkids} className={Classname}>
+            <div key={kkids} className={`${Classname} shrink-0`}>
               <Link href={
                 `/sponsors/${pravidor.seourl}`
-              }>
-            <img  src={imageUrl??""}  alt={pravidor.name}   width={200}   height={100}   />
+              }>           
+            {imageUrl && imageUrl !== "" ? (
+              <img src={imageUrl}  alt={pravidor.name}   width={200}   height={80}/>
+            ) : null}
             </Link>
 
             </div>

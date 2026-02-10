@@ -73,15 +73,18 @@ export default function Sponsors() {
                 <Link href={
                 `/sponsors/${provider.seourl}`
               }>
+                {imageUrl && imageUrl !== "" ? (  
                 <img 
-                  src={imageUrl ?? "/images/placeholder.png"} 
+                  src={imageUrl} 
                   alt={provider.title || "Sponsor"} 
                   width={200} 
                   height={100} 
                   className="object-contain"
                   // Next.js 16/React 19 optimization:
                   loading="lazy" 
-                /></Link>
+                />
+				 ) : null} 
+         </Link>
               </div>
             );
           })}

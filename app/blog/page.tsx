@@ -1,7 +1,7 @@
 
 
 
-import { strapiFetch } from "../services/strapi";
+import { strapiFetch, getStrapiMedia } from "../services/strapi";
 import BlogList from '../components/blocks/BlogPost';
 import Link from 'next/link';
 import qs from 'qs';
@@ -93,11 +93,21 @@ const ChevronLeft = () => (
             <div className="blog-grid">
                  {blogs.map((post: any,idx: any) => {
                  // console.log(`gamecategoty`); console.log(post.gamecategoty);
+				 const imagePath = post.image?.data?.attributes?.url || post.image?.url;
+				 const imageUrl = imagePath ? getStrapiMedia(imagePath) : '/placeholder-image.jpg';
+                 //const imageUrl = getStrapiMedia(post?.image.url);
                   return (                
 
                       <div key={post.id} className="blog-card">
                   <Link className="nav-link" href={`/blog/${post.seoUrl}`} key={post.id} >
-                  <div className="blog-image overflow-hidden"><img  src={`http://localhost:1337${post.image.url}`}  alt={post.heading}   width={600} height={100}  /></div>
+                  <div className="blog-image overflow-hidden">
+                    
+                    {imageUrl && imageUrl !== "" ? ( 
+				  <img  src={imageUrl}  alt={post.heading}   width={600} height={100}  />
+				   ) : null} 
+                    
+                    
+                    </div>
                   <div className="blog-content">
                     <span className="post-category"> 
                     {post.gamecategoty?.pagename || "Uncategorized"}  
@@ -114,7 +124,7 @@ const ChevronLeft = () => (
                 </div>
                   )
                   
-                   })}
+              })}
               
             </div>
           </div>

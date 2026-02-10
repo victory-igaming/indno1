@@ -1,7 +1,4 @@
-
-
-
-import { strapiFetch } from "@/services/strapi";
+import { getStrapiMedia, strapiFetch } from "@/services/strapi";
 import BlogProvider from '@/components/blocks/BlogProvider';
 import Link from 'next/link';
 import qs from 'qs';
@@ -32,27 +29,26 @@ if (!response || !response.data) {
 }
 
 // 2. Access the fields from inside data
-const blogs  = response.data;
+const blogs  = response.data ?? [];
 
 
 // Loading Category
-const  responsecat = await strapiFetch("gamepages?populate=*");
-const categories  = responsecat.data;
-console.log(categories);
+const responsecat = await strapiFetch("gamepages?populate=*");
+const categories = responsecat?.data ?? [];
 
 const blogCategory = categories.map((item: any) => ({
     id: item.id,
     title: item.pagename,
     category: item.gamecategoty?.pagename || 'General',
-    image: item.image?.url ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.image.url}` : '/placeholder.jpg',
-    slug: item.seoUrl
+    image: getStrapiMedia(item.image?.url) || '/placeholder.jpg',
+    slug: item.seourl
   }));
 
 //const myData = response.data;
 console.log(blogs);
 //console.log(heading); console.log(response.meta.pagination.page);
 
-  //console.log(heading); console.log(seoUrl);  console.log(image); console.log(image);console.log(blogbody);    
+  //console.log(heading); console.log(seourl);  console.log(image); console.log(image);console.log(blogbody);    
 
    const ChevronRight = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,15 +84,18 @@ const ChevronLeft = () => (
 
           {/* All Posts */}
           <div>
-            <h2 className="section-title">Latest Articles {blogs.heading} </h2>
+            <h2 className="section-title">Latest Articles</h2>
             <div className="blog-grid">
                  {blogs.map((post: any,idx: any) => {
                  // console.log(`gamecategoty`); console.log(post.gamecategoty);
+                  const imgUrl = getStrapiMedia(post.image?.url) || "/placeholder.jpg";
                   return (                
 
                       <div key={post.id} className="blog-card">
-                  <Link className="nav-link" href={`/blog/${post.seoUrl}`} key={post.id} >
-                  <div className="blog-image overflow-hidden"><img  src={`http://localhost:1337${post.image.url}`}  alt={post.heading}   width={600} height={100}  /></div>
+                  <Link className="nav-link" href={`/sponsors/${post.seourl}`} key={post.id} >
+                  <div className="blog-image overflow-hidden">
+                    <img src={imgUrl} alt={post.heading || "Sponsor"} width={600} height={100} />
+                  </div>
                   <div className="blog-content">
                     <span className="post-category"> 
                     {post.gamecategoty?.pagename || "Uncategorized"}  

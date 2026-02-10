@@ -1,34 +1,43 @@
+import qs from "qs";
 
-import qs from 'qs';
-/*
-export async function strapiFetch(path: string, queryObj: object = {}) {
-  const API_URL = "http://localhost:1337/";
-  const queryString = qs.stringify(queryObj, { encodeValuesOnly: true });
-  const url = `${API_URL}/api/${path}${queryString ? `?${queryString}` : ''}`;
-  console.log(url);
-  const res = await fetch(url);
-  return res.json();
-}
-*/
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-//const baseUrl = "http://localhost:1337";
-const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+/**
+ * ============================================================
+ * CONFIG
+ * ============================================================
+ */
+
+// Base Strapi URL (public, safe to expose)
+const rawBaseUrl =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+// Normalize to avoid double slashes when constructing URLs
+const baseUrl = rawBaseUrl.replace(/\/+$/, "");
+
+// Private token (ONLY used for protected endpoints)
 const TOKEN = process.env.API_TOKEN_SALT;
 
-// app/services/strapi.tsx
+/**
+ * ============================================================
+ * GENERIC STRAPI FETCH (PUBLIC CONTENT)
+ * ============================================================
+ *
+ * ❗ FIXED:
+ * - REMOVED: cache: 'no-store' (this was breaking static builds)
+ * - ADDED: next.revalidate for ISR compatibility
+ * - ADDED: safe error handling (returns null instead of crashing)
+ */
 export async function strapiFetch(path: string) {
-  //const baseUrl = "http://localhost:1337";
-  // 1. Get the base URL from env or fallback to localhost
-
-  
-  // 2. Ensure the URL is absolute and includes /api/
-  const fullUrl = `${baseUrl}/api/${path}`;
+  const cleanPath = path.replace(/^\/+/, "");
+  const fullUrl = `${baseUrl}/api/${cleanPath}`;
 
   try {
-    const res = await fetch(fullUrl, { cache: 'no-store' });
+    const res = await fetch(fullUrl, {
+      // ✅ ISR — allows static build + periodic refresh
+      next: { revalidate: 60 }, // change to 300 / 600 if needed
+    });
 
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      console.error(`Strapi error ${res.status}: ${fullUrl}`);
+      return null;
     }
 
     return await res.json();
@@ -38,166 +47,160 @@ export async function strapiFetch(path: string) {
   }
 }
 
-
+/**
+ * ============================================================
+ * STRAPI FETCH WITH AUTH (IMAGES / PROTECTED DATA)
+ * ============================================================
+ *
+ * ❗ FIXED:
+ * - REMOVED: cache: 'no-store'
+ * - ADDED: ISR revalidation
+ */
 export async function strapiUrlImage(path: string) {
-  //const baseUrl = "http://localhost:1337";
-  // 1. Get the base URL from env or fallback to localhost
-
-  
-  // 2. Ensure the URL is absolute and includes /api/
-  const fullUrl = `${baseUrl}/api/${path}`;
+  const cleanPath = path.replace(/^\/+/, "");
+  const fullUrl = `${baseUrl}/api/${cleanPath}`;
 
   try {
-    const res = await fetch(fullUrl, {  
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    cache: 'no-store' 
-  }
-  );
+    const res = await fetch(fullUrl, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      // ✅ ISR instead of forcing dynamic
+      next: { revalidate: 60 },
+    });
 
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      console.error(`Image fetch failed ${res.status}: ${fullUrl}`);
+      return null;
     }
 
     return await res.json();
   } catch (error) {
-    console.error("Could not fetch from Strapi:", error);
+    console.error("Could not fetch image from Strapi:", error);
     return null;
   }
 }
 
-
+/**
+ * ============================================================
+ * MEDIA URL HELPER
+ * ============================================================
+ */
 export function getStrapiMedia(url: string | null) {
-  //const baseUrl = "http://localhost:1337";
-  if (url == null) return null;
+  if (!url) return null;
 
-  // If it's already a full URL (e.g. hosted on S3/Cloudinary), return it
+  // Already absolute (Cloudinary, S3, etc.)
   if (url.startsWith("http") || url.startsWith("//")) return url;
 
-  // Otherwise, prepend the local Strapi URL
+  // Local Strapi file
   return `${baseUrl}${url}`;
 }
 
-
+/**
+ * ============================================================
+ * BLOG: FETCH BY DOCUMENT ID
+ * ============================================================
+ *
+ * ❗ FIXED:
+ * - REMOVED: cache: 'no-store'
+ * - ADDED: ISR
+ */
 export async function getBlogByDocumentId(docId: string) {
-  //const baseUrl = "http://localhost:1337";
-  const res = await fetch(`${baseUrl}/api/blogs/${docId}?populate=deep`, {  
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    cache: 'no-store' 
-  }
-  ); 
-  // Note: Using ?populate=deep or specific populate fields to get blogbody and faqBody
-  const json = await res.json();
-  return json.data;
-}
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/blogs/${docId}?populate=deep`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+      }
+    );
 
+    if (!res.ok) {
+      console.error(`Blog fetch failed: ${docId}`);
+      return null;
+    }
 
-export async function getBlogBySlug(slug: string) {
-  //const baseUrl = "http://localhost:1337";
-  // We use a filter to find the post where the slug matches
-
-// Try this specific syntax format
-  //const query = `/api/blogs?filters[slug][$eq]=${slug}&populate=*`;
-  const query = `/api/blogs?filters[seoUrl][$eq]=${encodeURIComponent(slug)}&populate=*`;
-  
-  const res = await fetch(`${baseUrl}${query}`,{  
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    cache: 'no-store' 
-  }
-  );
- console.log(res);
-  if (!res.ok) {
-    const errorData = await res.json();
-    console.error("Strapi Error Details:", errorData); // This will tell you EXACTLY what is wrong
+    const json = await res.json();
+    return json?.data ?? null;
+  } catch (error) {
+    console.error("getBlogByDocumentId error:", error);
     return null;
   }
-
-  const json = await res.json();
-  return json;
 }
 
-export async function getAllCategories() {
-  //const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-  
-  // We use populate=* if you want to count how many blogs are in each category
-  const res = await fetch(`${baseUrl}/api/gamepages?populate=*`, {  
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    cache: 'no-store' 
-  }
-  );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch categories');
-  }
-
-  const json = await res.json();
-  return json.data; // This returns the array of categories
-}
-
-
-/*
-export async function strapiFetch(
-  endpoint: string,
-  options: RequestInit = {}
-) {
-  const res = await fetch(`http://localhost:1337/api/posts/`, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    next: { revalidate: 60 }, // ISR
-    ...options,
-  });
-   console.log(`${API_URL}/api/${endpoint}`);
-  console.log(res);
-  if (!res.ok) {
-    throw new Error("Failed to fetch Strapi API");
-  }
-  console.log(res.json());
-  return await res.json();
-}
-*/
-
-/*
-export async function strapiFetchM(
-  path,
-  { method = 'GET', body, headers = {}, credentials = 'include' } = {}
-) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}${path}`,
+/**
+ * ============================================================
+ * BLOG: FETCH BY SLUG
+ * ============================================================
+ *
+ * ❗ FIXED:
+ * - REMOVED: cache: 'no-store'
+ * - ADDED: ISR
+ * - ADDED: safe null handling
+ */
+export async function getBlogBySlug(slug: string) {
+  const query = qs.stringify(
     {
-      method,
-      credentials,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers,
-      },
-      body: body ? JSON.stringify(body) : undefined,
-      cache: 'no-store',
-    }
+      filters: { seoUrl: { $eq: slug } },
+      populate: "*",
+    },
+    { encodeValuesOnly: true }
   );
 
-  const data = await res.json();
+  try {
+    const res = await fetch(`${baseUrl}/api/blogs?${query}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 60 },
+    });
 
-  if (!res.ok) {
-    throw {
-      status: res.status,
-      message: data?.error?.message || 'Strapi request failed',
-      data,
-    };
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Strapi slug fetch error:", errorData);
+      return null;
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("getBlogBySlug error:", error);
+    return null;
   }
-
-  return data;
 }
-*/
+
+/**
+ * ============================================================
+ * GAME / CATEGORY FETCH
+ * ============================================================
+ *
+ * ❗ FIXED:
+ * - REMOVED: cache: 'no-store'
+ * - ADDED: ISR
+ */
+export async function getAllCategories() {
+  try {
+    const res = await fetch(`${baseUrl}/api/gamepages?populate=*`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      console.error("Failed to fetch categories");
+      return [];
+    }
+
+    const json = await res.json();
+    return json?.data ?? [];
+  } catch (error) {
+    console.error("getAllCategories error:", error);
+    return [];
+  }
+}

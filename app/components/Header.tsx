@@ -32,6 +32,23 @@ export default function Header() {
       setIsSearchOpen(false);
     }
   };
+
+  const handlePlayButton = ({e}:any) => {
+    e.preventDefault();
+    if (query.trim()) {
+      // Redirects to /blog with the search query as a URL parameter
+      router.push(`/search?search=${encodeURIComponent(query)}`);
+      setQuery("");
+      setIsSearchOpen(false);
+    }
+  };
+
+  const handleOpenSite = () => {
+    // window.open(URL, Target, Features)
+    // '_blank' opens the link in a new tab
+    // 'noopener,noreferrer' is a security best practice
+    window.open("https://indno1.com", "_blank", "noopener,noreferrer");
+  };
   
   return (
      <header className="header">
@@ -44,6 +61,9 @@ export default function Header() {
         alt="Indno1 Company Logo" 
         width={60} 
         height={60} 
+        style={{height:'auto'}}
+        unoptimized
+        priority
       /></div></Link>
               <div>
                 <div className="logo-text">IND NO1</div>
@@ -101,13 +121,16 @@ export default function Header() {
                 <span className="search-icon cursor-pointer" onClick={() => setIsSearchOpen(!isSearchOpen)}><SearchIcon /></span>
                 </form>
               </div>
-              <button className="play-now-btn">PLAY NOW</button>
+              <button className="play-now-btn" onClick={handleOpenSite}>PLAY NOW</button>
               <div className="flag-icon">
                 <NextImage 
         src="/images/en.png" 
-        alt="Company Logo" 
+        alt="Ind No 01 Logo" 
         width={60} 
+        className="w-37.5 h-auto"
+        priority
         height={60} 
+        style={{height:'auto'}}
       />
               </div>
             </div>

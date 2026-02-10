@@ -76,7 +76,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
         </section>
 
           <div className="intro-box">
-            <h1> Indno1 {heading} Game</h1>
+            <h1> {heading} </h1>
             <p className="intro-text">
            
             </p>
@@ -99,7 +99,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
 
          {/* FAQ List */}
          <div className="faqgame-list">
-            <h2 className="section-title capitalize">FAQ {heading} Articles</h2>
+            <h2 className="section-title capitalize"> FAQ </h2>
             {faqBody.map((item: any) => {
               // ADD THE RETURN KEYWORD HERE
               return (

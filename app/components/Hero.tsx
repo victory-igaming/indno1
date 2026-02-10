@@ -40,14 +40,18 @@ const Hero = ({ slides }: HerobannerProps) => {
         {slides.map((slide: any, sids: any) => {        
         const imageUrl = getStrapiMedia(slide.image?.url);        
         return(  
-      <section className="max-h-100 overflow-hidden">              
-       <NextImage  src={imageUrl??""} 
+      <section className="max-h-100 overflow-hidden"> 
+      {imageUrl && imageUrl !== "" ? (              
+              <NextImage  src={imageUrl} 
               alt={slide?.alternativeText || slide?.title || "Sport image"} 
               width={1360} 
               height={414} 
               key={sids}
-              unoptimized
-            />         
+              priority
+              unoptimized             
+            />  
+            ) : null}             
+              
        </section> 
         ) 
       })}   
