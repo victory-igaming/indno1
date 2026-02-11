@@ -38,8 +38,7 @@
 
     .logo {
       width: 4rem !important;
-      height: 4rem !important;
-     /* background: linear-gradient(to bottom right, #ca8a04, #b91c1c);*/
+      height: 4rem !important;     
       border-radius: 0.5rem;
       display: flex;
       align-items: center;
@@ -99,7 +98,7 @@
       background: linear-gradient(to right, #eab308, #ca8a04);
       color: black;
       font-weight: bold;
-      padding: 0.625rem 2rem;
+      padding: 0.625rem 1rem;
       border-radius: 0.5rem;
       border: none;
       cursor: pointer;
@@ -112,16 +111,17 @@
       transform: scale(1.05);
     }
 
-     .download-now-btn {
+    .download-now-btn {
       background: linear-gradient(to right, #000000, #000000);
       color: black;
       font-weight: bold;
-      padding: 0.2rem 1rem;
+      padding: 0;
       border-radius: 0.5rem;
       border: none;
       cursor: pointer;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.2s;
+      transition: all 0.1s;
+      
     }
 
     .download-now-btn:hover {
@@ -319,7 +319,6 @@
       padding: 1.5rem;
       border-top: 1px solid rgba(234, 179, 8);
       border-bottom: 1px solid rgba(234, 179, 8);margin-top: 0%;
-     
     }
 
     .provider-logo {
@@ -393,7 +392,7 @@
 
     .hero-banner {
       position: relative;
-      /* height: 26rem; */
+      height: 26rem; 
       border-radius: 1rem;
       overflow: hidden;
       border: 1px solid rgb(234, 179, 8);
@@ -449,7 +448,7 @@
       border-radius: 9999px;
     }
 
-     .last-updated {
+    .last-updated {
       font-size: 0.875rem;
       color: #9ca3af;
       margin-top: 1rem;
@@ -514,7 +513,7 @@
       color: #fbbf24;
     }
 
-     .nav-menu {
+    .nav-menu {
       display: flex;
       gap: 2rem;
       list-style: none;
@@ -1693,7 +1692,9 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
+      -webkit-user-select : none;
       user-select: none;
+      
     }
 
     .question-text {
@@ -1895,7 +1896,7 @@
       margin-bottom: 1.5rem;
     }
 
- .links-grid {
+    .links-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
@@ -2088,12 +2089,12 @@
       font-size: 1.125rem;
     }
 
- .highlight-box p {
-  color: #d1d5db;
-  margin-bottom: 1rem;
-  font-size: 1.0625rem;
-  line-height: 1.8;
-}
+    .highlight-box p {
+      color: #d1d5db;
+      margin-bottom: 1rem;
+      font-size: 1.0625rem;
+      line-height: 1.8;
+    }
 
     .tip-box {
       background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
@@ -2422,7 +2423,6 @@
     
 
  /* -------------------------------------  Footer ---------------------------------- */
-   
     .footer {
       background: linear-gradient(to right, #1a0f08, #0f0a06);
       border-top: 1px solid rgba(234, 179, 8);
@@ -2510,11 +2510,26 @@
       transform: scale(1.1);
     }
 
+    .footer-bottom {
+      border-top: 1px solid #fff;
+      margin-top: 2rem;
+    }
+
+    .footer-divider {
+      border: none;
+    }
+
+    .copyright-text{
+      text-align: center;
+      color: #eab308;
+      margin-top: 2rem;
+    }
+
+
 
     /* Game Category  ->  Hero Game Section */
     .herogame-section {
       background: linear-gradient(135deg, #3d2415 0%, #1f120a 100%);
-     
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -2642,6 +2657,7 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
+      -webkit-user-select: none;
       user-select: none;
     }
 
@@ -2703,6 +2719,14 @@
       margin-bottom: 1.5rem;
     }
 
+
+/* Hide dots for Mobile and Tablet */
+.dots-container,
+.control-dots,
+.carousel .control-dots {
+  display: none !important;
+}
+
      /* -------------------------------------  media ---------------------------------- */
    
     @media (max-width: 1024px) {
@@ -2741,17 +2765,27 @@
         position: relative;       
       }
 
+    .hero-banner {
+      height: 16rem; 
+     
     }
 
-    @media (max-width: 640px) {
-      .header-actions {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
+    }
 
-      .search-input {
-        width: 100%;
-      }
+
+    @media (max-width: 640px) {
+
+    .hero-banner {
+      height: 6rem;     
+    }
+
+    .header-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .search-input {
+      width: 100%;
+    }
 
      .games-grid,
       .racing-grid,      
@@ -2796,6 +2830,17 @@
       }
 
 
-    }
+}
+
+
+/* Show dots only on Desktop (lg breakpoint) */
+@media (min-width: 1024px) {
+  .dots-container,
+  .control-dots,
+  .carousel .control-dots {
+    display: flex !important;
+    justify-content: center;
+  }
+}
 
   

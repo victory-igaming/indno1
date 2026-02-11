@@ -45,7 +45,7 @@ const blogCategory = categories.map((item: any) => ({
   }));
 
 //const myData = response.data;
-console.log(blogs);
+//console.log(blogs);
 //console.log(heading); console.log(response.meta.pagination.page);
 
   //console.log(heading); console.log(seourl);  console.log(image); console.log(image);console.log(blogbody);    

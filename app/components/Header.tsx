@@ -87,6 +87,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                 <NextImage 
         src="/images/logo1.png" 
         alt="Indno1 Company Logo" 
+        title='Most Trusted<br/>Gaming & Betting<br/>Website'
         width={60} 
         height={60} 
         style={{height:'auto'}}
@@ -94,7 +95,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
         priority
       /></div></Link>
               <div>
-                <div className="logo-text">IND NO1</div>
+             
                 <div className="logo-subtitle">Most Trusted<br/>Gaming & Betting<br/>Website</div>
               </div>
             </div>
@@ -120,16 +121,30 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                    `nav-link  ${pathname === "/faq"?"nav-link-active":""}`
                    
                 )} href="/faq">FAQ</Link></li>
+                
+            
+               
+               
+               <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/affiliate"?"nav-link-active":""}`
+                   
+                )} href="/affiliate">Affiliate</Link></li>
+               {/*   
                 <li><Link className={(
                    
                    `nav-link  ${pathname === "/terms"?"nav-link-active":""}`
                    
                 )} href="/terms">Terms & Conditions</Link></li>
-                <li><Link className={(
+
+
+               <li><Link className={(
                    
                    `nav-link  ${pathname === "/contact"?"nav-link-active":""}`
                    
                 )} href="/contact">Contact</Link></li>
+
+
                 {/* <li><Link className="nav-link" href="/blogdetails">Blog Data</Link></li> */}
                  
                 
@@ -152,7 +167,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
               <button className="play-now-btn" onClick={handleOpenSite}>PLAY NOW</button>
 
                {/* Google Play Button */}
-  <button className="download-now-btn" type='button' onClick={() => handleClick(qrData.android)} >
+  <button className="download-now-btn" type='button' onClick={() => handleClick(qrData.android)} style={{marginRight:'-13px'}} >
     <img 
        src="/images/playstore.png" 
       alt="Get it on Google Play" 

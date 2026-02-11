@@ -1,11 +1,12 @@
 import Link from 'next/link';  
-  
+
+import GallerySection from '@/components/blocks/FooterGallery';  
   const socialLinks = [
     { id: '1', label: 'FaceBook', icon: 'f' },
     { id: '2', label: 'x', icon: '𝕏' },
-    { id: '3', label: 'Tweeter', icon: '🌐' },
-    { id: '4', label: 'Youtube', icon: '📷' },
-    { id: '5', label: 'Live', icon: '📺' },
+    { id: '3', label: 'Tweeter', icon: 't' },
+    { id: '4', label: 'Youtube', icon: 'y' },
+   
 
   ];  
 ['🌐', '𝕏', 'f', '📷', '📺', '💬', '📱']
@@ -120,13 +121,25 @@ export default function Footer() {
               </div>
               <div className="footer-column">
                 <h4>Our Global Community</h4>
-                <div className="social-icons">
+                <div className="social-icons mb-5">
                   {socialLinks.map((scialitem, i) => (
-                    <div key={i} className="social-icon">{scialitem.icon}</div>
+                    <div key={i} className="social-icon" title={scialitem.label}>{scialitem.icon}</div>
                   ))}
                 </div>
+
+                <GallerySection />
               </div>
             </div>
+
+            {/* Added Copyright Footer */}
+        <div className="footer-bottom">
+          <hr className="footer-divider" />
+          <p className="copyright-text">
+            IndNO1 © 2026 All rights reserved.
+          </p>
+        </div>
+
+
           </div>
         </footer>
   )
