@@ -6,19 +6,7 @@ import qs from 'qs';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 
-  const liveProvider = [
-    { id: '1', title: 'PLAY', image: '/images/play.png', icon: '🎰'},
-    { id: '2', title: 'PG', image: '/images/pg.png', icon: '🎰'},
-    { id: '3', title: 'M', image: '/images/m.png', icon: '🎰'},
-    { id: '4', title: 'JILI', image: '/images/jili.png', icon: '🎰'},
-    { id: '5', title: 'JDB', image: '/images/jdb.png', icon: '🎰'},
-    { id: '6', title: 'Fire', image: '/images/H.png', icon: '🔥'},
-    { id: '7', title: 'A', image: '/images/A.png', icon: '🎰'},
-    { id: '8', title: 'cq9', image: '/images/cq9.png', icon: '🎰'},
-    { id: '9', title: 'BG GAMING', image: '/images/pg.png', icon: '🎰'},
-    { id: '10', title: 'Stars', image: '/images/start.png', icon: '⭐'},
-    { id: '11', title: 'spribe', image: '/images/spribe.png', icon: '⭐'},
-  ];
+
   // Loading providers
       const queryCat = qs.stringify({        
         populate: {
@@ -33,7 +21,7 @@ import { motion } from "framer-motion";
 
 const Marquee = ({ children, speed = 300 }: { children: React.ReactNode, speed?: number }) => {
   return (
-    <div className="mx-auto max-w-full w-full overflow-hidden select-none bg-transparent">
+    <div className="mx-auto max-w-300 w-full overflow-hidden select-none bg-transparent">
       <motion.div
         className="flex shrink-0 items-center gap-10 pr-10"
         animate={{
@@ -105,7 +93,7 @@ export default function Provider({Classname}: any) {
                 `/sponsors/${pravidor.seourl}`
               }>           
             {imageUrl && imageUrl !== "" ? (
-              <img src={imageUrl}  alt={pravidor.name}   width={200}   height={80}/>
+              <img src={imageUrl}  alt={pravidor.name}   width={100}   height={80}/>
             ) : null}
             </Link>
 

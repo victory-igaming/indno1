@@ -139,7 +139,7 @@ export default function SportsTabs() {
         {/* Show loading spinner if data is fetching */}
         {/* console.log(liveData) */}
   {isLoading ? (
-    <div className="col-span-full text-center text-[#ffb800] animate-pulse p-50" style={{padding: `150px;`}}>
+    <div className="col-span-full text-center text-[#ffb800] animate-pulse p-50" style={{ padding: '150px' }}>
        {activeTab} Loading Live Scores...
     </div>
 ) : (

@@ -18,17 +18,8 @@ export default function FeaturedSports({ sportbanner }: { sportbanner: any[] }) 
       <div className="racing-grid">
       {sportbanner.map((sport) => (
 
-         <div key={sport.id} className="racing-card">
-                  <div className="racing-title"> {sport.icon?.url && (
-            <NextImage 
-              src={`${getStrapiMedia(sport.icon?.url)}`} 
-              alt={sport?.alternativeText || sport?.title || "Sport image"}
-              width={20} 
-              height={20}
-              unoptimized // Bypasses the Private IP error we saw earlier
-            />
-          )} {sport.title}</div>
-                  <div className="flex-1 racing-img">
+      <div key={sport.id} className="racing-card">
+           <div className=" racing-img">
                  {sport.image?.url && (
             <NextImage 
               src={`${getStrapiMedia(sport.image?.url)}`} 
@@ -37,16 +28,20 @@ export default function FeaturedSports({ sportbanner }: { sportbanner: any[] }) 
               height={80}
               unoptimized
             />
-          )}
+          )} 
+    </div>
 
-                                          </div>
-<div className="flex-1 space-y-4">
-       
-        <p className="text-gray-300">
-         {sport.description}
-        </p>
-      
-      </div>
+    <div className="flex-1 racing-title"> {sport.icon?.url && (
+            <NextImage 
+              src={`${getStrapiMedia(sport.icon?.url)}`} 
+              alt={sport?.alternativeText || sport?.title || "Sport image"}
+              width={20} 
+              height={20}
+              unoptimized // Bypasses the Private IP error we saw earlier
+            />
+          )} {sport.title}</div>
+                 
+
                                 
                 </div>
                 

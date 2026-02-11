@@ -112,6 +112,31 @@
       transform: scale(1.05);
     }
 
+     .download-now-btn {
+      background: linear-gradient(to right, #000000, #000000);
+      color: black;
+      font-weight: bold;
+      padding: 0.2rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+
+    .download-now-btn:hover {
+      background: linear-gradient(to right, #000000, #000000);
+      transform: scale(1.05);
+      
+    }
+
+    .store-icon {
+      width: 4rem;
+      height: 2.5rem;
+      border-radius: 0.2rem;
+      border: 1px solid rgb(234, 179, 8);     
+    }
+
     .flag-icon {
       width: 2.5rem;
       height: 2.5rem;
@@ -684,17 +709,18 @@
     }
 
     .racing-title {
-      color: #fbbf24;
+      color: white;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
+      font-size: 26px;
     }
 
     .racing-img {
       width: 30%;
-      float: left;
+      float: right;
       position: relative;
     }
       .racing-details {
