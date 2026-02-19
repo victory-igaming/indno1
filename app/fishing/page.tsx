@@ -72,7 +72,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
          {/* Herogame Section */}
         <section className="herogame-section  max-h-100">
 
-          <img src={imageUrl??""} alt={imageAlt}    width={1360} height={414} />       
+          {imageUrl && imageUrl !== "" ? (<img src={imageUrl} alt={imageAlt}    width={1360} height={414} />) : null}      
       
         </section>
 

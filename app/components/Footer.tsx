@@ -14,42 +14,42 @@ import GallerySection from '@/components/blocks/FooterGallery';
 
 
   const casinoFooterItems = [
-    { id: '1', label: 'Casino Home',  href:'' },
-    { id: '2', label: 'Live', href:'' },
-    { id: '3', label: 'New Releases', href:'' },
-    { id: '4', label: 'Recommended', href:'' },
-    { id: '5', label: 'Table Game', href:'' },
-    { id: '6', label: 'Black Jack', href:'' },
-    { id: '7', label: 'Poker', href:'' },
-    { id: '8', label: 'Baccarat', href:'' },
-    { id: '9', label: 'Sports', href:'' },
+    { id: '1', label: 'Casino Home',  href:'/casinos/casino-home' },
+    { id: '2', label: 'Live', href:'/casinos/live-casino' },
+    { id: '3', label: 'New Releases', href:'/casinos/new-releases' },
+    { id: '4', label: 'Recommended', href:'/casinos/recommended' },
+    { id: '5', label: 'Table Game', href:'/casinos/table-game' },
+    { id: '6', label: 'Black Jack', href:'/casinos/plack-jack' },
+    { id: '7', label: 'Poker', href:'/casinos/poker' },
+    { id: '8', label: 'Baccarat', href:'/casinos/baccarat' },
+    { id: '9', label: 'Sports', href:'/casinos/sports' },
   ];    
 
   const sportFooterItems = [
-    { id: '1', label: 'Sports Home',  href:'' },
-    { id: '2', label: 'Live', href:'' },
-    { id: '3', label: 'Rules', href:'' },
-    { id: '4', label: 'Sport Betting Insights', href:'' },
+    { id: '1', label: 'Sports Home',  href:'/sport/sports-home' },
+    { id: '2', label: 'Live', href:'/sport/live-sport' },
+    { id: '3', label: 'Rules', href:'/sport/rules' },
+    { id: '4', label: 'Sport Betting Insights', href:'/sport/sport-betting-insights' },
    
   ];   
 
   const suportFooterItems = [
-    { id: '1', label: 'VIP Club',  href:'' },
-    { id: '2', label: 'Referral', href:'' },
-    { id: '3', label: 'Affiliate', href:'' },
-    { id: '4', label: 'Lottery', href:'' },
-    { id: '5', label: 'Refer a friend', href:'' },
+    { id: '1', label: 'VIP Club',  href:'/support/vip-club' },
+    { id: '2', label: 'Referral', href:'/support/referral' },
+    { id: '3', label: 'Affiliate', href:'/support/affiliate' },
+    { id: '4', label: 'Lottery', href:'/support/lottery' },
+    { id: '5', label: 'Refer a friend', href:'/support/refer-a-friend' },
   
   ];  
 
     const legalFooterItems = [
-    { id: '1', label: 'About Us',  href:'' },
-    { id: '2', label: 'Help Center', href:'' },
-    { id: '3', label: 'Gamble Aware', href:'' },
-    { id: '4', label: 'Fairness', href:'' },
-    { id: '5', label: 'FAQ', href:'' },
-    { id: '6', label: 'Privacy Policy', href:'' },
-    { id: '7', label: 'Terms of Service', href:'' },
+    { id: '1', label: 'About Us',  href:'/about' },
+    { id: '2', label: 'Help Center', href:'/legal/help-center' },
+    { id: '3', label: 'Gamble Aware', href:'/legal/gamble-aware' },
+    { id: '4', label: 'Fairness', href:'/legal/fairness' },
+    { id: '5', label: 'FAQ', href:'/faq' },
+    { id: '6', label: 'Privacy Policy', href:'/legal/privacy-policy' },
+    { id: '7', label: 'Terms of Service', href:'/terms' },
   
   ]; 
 

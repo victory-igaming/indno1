@@ -13,6 +13,8 @@ import TipwarnCard  from "../../components/blocks/TipwarnCard";
 import TipsuccessCard  from "../../components/blocks/TipsuccessCard";
 import TipdangerCard  from "../../components/blocks/TipdangerCard";
 
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+
 import qs from 'qs';
 
 export default async function BlogDetails({ 
@@ -71,7 +73,8 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
          {/* Herogame Section */}
         <section className="herogame-section max-h-100">
 
-          <img src={imageUrl??""} alt={imageAlt}    width={1360} height={200} />       
+       
+          {imageUrl && imageUrl !== "" ? (<img src={imageUrl} alt={imageAlt}    width={1360} height={200} />) : null}       
       
         </section>
 

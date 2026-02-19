@@ -5,7 +5,11 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
+      background-color: linear-gradient(#2a1810, #1f120a, #0f0a06) !important;
+    
+}
+
+
 
     .gaming-container {
       min-height: 100vh;
@@ -123,6 +127,15 @@
       transition: all 0.1s;
       
     }
+
+     .download-andrd {
+      margin-right: 2px;
+
+     }
+
+     /* .download-iso {
+
+     } */
 
     .download-now-btn:hover {
       background: linear-gradient(to right, #000000, #000000);
@@ -389,16 +402,22 @@
       margin: 0 auto 2rem;
       line-height: 1.8;
     }
+.hero-banner {
+  position: relative;
+  width: 100%;
+  /* Mobile height: ~200px | Desktop height: ~416px */
+  height: 12rem; 
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgb(234, 179, 8); /* Gold border #ffb800 equivalent */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
 
-    .hero-banner {
-      position: relative;
-      height: 26rem; 
-      border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgb(234, 179, 8);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-    }
-
+@media (min-width: 768px) {
+  .hero-banner {
+    height: 26rem; 
+  }
+}
     .hero-bg {
       position: absolute;
       inset: 0;
@@ -2679,7 +2698,7 @@
     }
 
     .faqgame-answer {
-      max-height: 0;
+      
       overflow: hidden;
       transition: max-height 0.3s ease-out, padding 0.3s ease-out;
     }
@@ -2719,7 +2738,6 @@
       margin-bottom: 1.5rem;
     }
 
-
 /* Hide dots for Mobile and Tablet */
 .dots-container,
 .control-dots,
@@ -2727,9 +2745,18 @@
   display: none !important;
 }
 
+/* Hide toggle on Desktop */
+@media (min-width: 1025px) {
+.lg\:hidden {
+    display: none;
+  }
+
+}
+
      /* -------------------------------------  media ---------------------------------- */
+
    
-    @media (max-width: 1024px) {
+    @media (max-width: 1024px) {      
 
       .main-layout {
         flex-direction: column;
@@ -2754,11 +2781,11 @@
       }
 
       .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
 
        nav .nav-menu {
-        display: none;
+        display: flex;
       }
 
       .sidebar{
@@ -2770,21 +2797,108 @@
      
     }
 
+    .nav-container {
+    position: absolute;
+    top: 100%; /* Sits right below the header */
+    left: 0;
+    width: 100%;
+    background: #1a1a1a; /* Match your header color */
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    z-index: 40;
+  }
+
+  .nav-closed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav-open {
+    max-height: 500px; /* Adjust based on content height */
+    opacity: 1;
+    padding: 20px 0;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+    .header-button{
+      margin-right: 30px !important;
     }
 
+}
 
-    @media (max-width: 640px) {
+
+@media (max-width: 640px) {
+
+      .logo-subtitle{
+        display: none;
+      }
+
+      .play-now-btn{
+        display: none;
+      }
+
+    .download-now-btn{
+       float: left;
+      }
 
     .hero-banner {
       height: 6rem;     
     }
 
-    .header-actions {
-      flex-direction: column;
-      gap: 0.5rem;
+    .header{
+      position:relative;
     }
+
+    .header-content{
+      display: grid;
+    }
+
+    .header-actions {
+
+      flex-direction:column;
+      gap: 1rem;
+      margin-top: -70px;
+
+    }
+
     .search-input {
       width: 100%;
+    }
+
+    .logo-section { 
+      display: inline; 
+      align-content:start;
+      flex-direction:row;
+      align-items: center;
+      justify-content: center;
+     
+    }
+
+    .download-now-btn {
+      width: 70px;
+    }
+
+    .download-andrd {
+      margin-left: 70px;
+      margin-right: -25px;
+    }
+
+    .header-button{
+      margin-right: 30px !important;
+    }
+
+    .menu-btm {
+      margin-top: 1em;
+      align-items: center;
+      justify-items: center;
+      margin-left: 2rem; 
+        
     }
 
      .games-grid,
@@ -2799,11 +2913,15 @@
       }    
 
       .footer-grid {
-        grid-template-columns: 1fr;
+         grid-template-columns: repeat(1, 1fr);
+      }
+
+      .footer-column{
+        width: 100%;
       }
 
       nav .nav-menu {
-        display: none;
+        display: flex;
       }
 
       .sidebar{
@@ -2824,10 +2942,74 @@
         font-size: 1rem;
       }
 
-      .section-icon2{
-        margin-top: -40px;
-        margin-right: -20px;
-      }
+    .section-icon2{
+      margin-top: -40px;
+      margin-right: -20px;
+    }
+
+   .team-grid {     
+      grid-template-columns: repeat(2, 1fr);     
+   }
+
+  .team-card {
+    padding: 0.5rem;
+  }
+
+ .stats-grid{
+        grid-template-columns: repeat(1, 1fr);
+        margin: 1.5rem auto;
+  }
+
+  .values-grid{
+        grid-template-columns: repeat(1, 1fr);
+  }
+
+  .blog-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .blog-excerpt{
+    display: none;
+  }
+
+  .blog-image{
+      height: 100px;
+  }
+
+  .category-filter {    
+    justify-content: space-between;   
+  }
+
+  .blog-title{
+    font-size: 1rem;
+  }
+
+  .hero-section{
+    padding: 0px;
+  } 
+  
+  .hero-content {
+    padding: 0 1rem;
+  }
+
+  .hero-title{
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .hero-subtitle{
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+
+  .story-section{
+        padding: 1.25rem;
+  }
+
+  .story-text{
+    font-size: 1rem;
+  }
 
 
 }
@@ -2841,6 +3023,45 @@
     display: flex !important;
     justify-content: center;
   }
+
+  .footer-column{
+        width: 100%;
+  }
+
+}
+
+
+@media (min-width: 1500px) {
+  .hero-banner {
+    max-width: 83rem;
+    text-align: center;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1499px) {
+  .hero-banner {
+    max-width: 77rem;
+    text-align: center;
+  }
+}
+@media screen and (min-width: 899px) and (max-width: 1199px) {
+  .hero-banner {
+    max-width: 70rem;
+    text-align: center;
+  }
+}
+
+
+.mobIcon{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.trustpilot-widget{
+  margin-top: 30px;
+  margin-left:-90px;
+  position: fixed;
+  right: 0px;
 }
 
   

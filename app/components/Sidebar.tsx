@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';  
 import Link from 'next/link';
- 
+ import NextImage from 'next/image';
 
 
 const ChevronRight = () => (
@@ -12,15 +12,15 @@ const ChevronRight = () => (
 );
 
   const sidebarItems = [
-    { id: 'hot', label: 'Hot', icon: '🔥', href:'/hot' },
-    { id: 'casino', label: 'Casino', icon: '🎰', href:'/casino' },
-    { id: 'sports', label: 'Sports', icon: '⚽', href:'/sports' },
-    { id: 'cockfight', label: 'Cock Fight', icon: '🐓', href:'/cockfight' },
-    { id: 'live', label: 'Live', icon: '📺', href:'/live' },
-    { id: 'crash', label: 'Crash', icon: '💥', href:'/crash' },
-    { id: 'games', label: 'Games', icon: '🎮', href:'/games' },
-    { id: 'lottery', label: 'Lottery', icon: '🎫', href:'/lottery' },
-    { id: 'fishing', label: 'Fishing', icon: '🎣', href:'/fishing' },
+    { id: 'hot', label: 'Hot', icon: '🔥', image: '/sideicon/hot.png' , href:'/hot' },
+    { id: 'casino', label: 'Casino', icon: '🎰', image: '/sideicon/casino.png' , href:'/casino' },
+    { id: 'sports', label: 'Sports', icon: '⚽', image: '/sideicon/sports.png' , href:'/sports' },
+    { id: 'cockfight', label: 'Cock Fight', icon: '🐓', image: '/sideicon/cockfighting.png' , href:'/cockfight' },
+    { id: 'live', label: 'Live', icon: '📺', image: '/sideicon/live.png' , href:'/live' },
+    { id: 'crash', label: 'Crash', icon: '💥', image: '/sideicon/crash.png' , href:'/crash' },
+    { id: 'games', label: 'Games', icon: '🎮', image: '/sideicon/games.png' , href:'/games' },
+    { id: 'lottery', label: 'Lottery', icon: '🎫', image: '/sideicon/lottery.png' , href:'/lottery' },
+    { id: 'fishing', label: 'Fishing', icon: '🎣', image: '/sideicon/fishing.png' , href:'/fishing' },
   ];    
 
 export default function Sidebar() {
@@ -37,7 +37,13 @@ export default function Sidebar() {
                 onClick={() => setActiveSection(item.id)}
                 className={`nav-btn ${activeSection === item.id ? 'nav-btn-active' : 'nav-btn-inactive'}`}
               >
-                <span className="nav-icon">{item.icon}</span>
+                
+                <NextImage  src={item.image}  alt={item.label}  width={30}  height={30}  priority unoptimized
+                              />
+
+                {/* <span className="nav-icon">{item.icon}</span> */}
+
+
                 {item.label}
                 <span className="nav-chevron"><ChevronRight /></span>
               </button></Link> 

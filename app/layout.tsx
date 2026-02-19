@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar';
 import LotteryCard from './components/LotteryCard';
 import Application from './components/Application';
 import Footer from './components/Footer';
+import TrustpilotWidget from './components/TrustpilotWidget';
 import {LiveChat , ChatButton} from '@/components/LiveChatWidget';
 
 export const metadata: Metadata = {
@@ -30,7 +31,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    
     <html lang="en" suppressHydrationWarning={true}>
+      <head>        
+
+        
+
+      </head>
       <body>
         <div className="gaming-container">
 
@@ -74,11 +81,16 @@ export default function RootLayout({
             <LiveChat />
                          
 
+ <TrustpilotWidget />
         </div>
 
-         
+       
 
         </body>
+
+   
+
+
     </html>
   )
 }

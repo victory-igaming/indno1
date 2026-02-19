@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -29,26 +29,46 @@ const photos = [
 
 export default function GallerySection() {
 
- const [index, setIndex] = useState(-1);
+const [isMounted, setIsMounted] = useState(false);
  const [isExpanded, setIsExpanded] = useState(false);
+ const widgetRef = useRef<HTMLDivElement>(null);
 
- const displayedPhotos = isExpanded ? photos : photos.slice(0, 4);
+useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Only run this if we are mounted and the Trustpilot script is loaded
+    const tp = (window as any).Trustpilot;
+    if (isMounted && tp && widgetRef.current) {
+      tp.loadFromElement(widgetRef.current);
+    }
+  }, [isMounted]);
+
+  // To prevent hydration mismatch, we render a placeholder 
+  // or nothing on the server
+  if (!isMounted) {
+    return <div className="h-13" />; // Matches the widget height
+  }
 
   return (
-    <div className="bg-[#1a0f00] p-5 rounded-xl border border-[#3d2b00]" style={{marginTop:'30px'}}>       
+    <section>
+       {/* Other gallery code... */}
+       <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 
-      <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4" style={{margin:'8px'}}>
-            {photos.map((sponsor, i) => (
-                <div key={i} className="break-inside-avoid" style={{marginTop:'4px',marginBottom:'6px'}} title={sponsor.title}>
-                    <img  
-                    src={sponsor.src}  
-                    alt={sponsor.title} 
-                    height={sponsor.height} 
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105 m-4"
-                    />
-                </div>
-            ))}
+       <div 
+        ref={widgetRef}
+        className="trustpilot-widget" 
+        data-locale="en-US" 
+        data-template-id="56278e9abfbbba0bdcd568bc" 
+        data-businessunit-id="698d5c6ec479215d80d8b26f" 
+        data-style-height="52px" 
+        data-style-width="100%" 
+        data-token="41d4d842-e21e-453c-99e4-478569cdcfdb"
+      >
+
+
       </div>
-    </div>
+    </section>
   );
 }

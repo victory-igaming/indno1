@@ -145,7 +145,11 @@ const games  = responsegame.data;
 
                       <div key={post.id} className="blog-card">
                   <Link className="nav-link" href={`/blog/${post.seoUrl}`} key={post.id} >
-                  <div className="blog-image overflow-hidden"><img  src={imageUrl??""}  alt={post.heading}   width={600} height={100}  /></div>
+                  <div className="blog-image overflow-hidden">
+                    {imageUrl && imageUrl !== "" ? (<img  src={imageUrl}  alt={post.heading}   width={600} height={100}  />) : null} 
+                    
+                    
+                    </div>
                   <div className="blog-content">
                     <span className="post-category"> 
                     {post.gamecategoty?.pagename || "Uncategorized"}  

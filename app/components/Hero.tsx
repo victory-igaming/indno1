@@ -38,7 +38,7 @@ const Hero = ({ slides }: HerobannerProps) => {
   };
 
   return (
-    <div className="hero-banner w-full mx-auto max-w-340 h-200">
+    <div className="hero-banner  mx-auto max-w-328 h-200">
       <Carousel 
         responsive={responsive}
         infinite={true}

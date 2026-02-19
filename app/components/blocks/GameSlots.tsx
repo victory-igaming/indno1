@@ -24,8 +24,10 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
 
   return (
     <div key={id} className="casino-item">
-      <Link className="nav-link" href={`/playgame/${seourl}`} key={id} >
-        <img  src={imageUrl?? ""}  alt={imageAlt}   width={340}   height={180}  />
+        <Link className="nav-link" href={`/playgame/${seourl}`} key={id} >
+        {imageUrl && imageUrl !== "" ? ( 
+          <img  src={imageUrl}  alt={imageAlt}   width={340}   height={180}  />
+          ) : null} 
         </Link>
     </div>
    

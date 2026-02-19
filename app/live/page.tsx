@@ -17,7 +17,7 @@ import qs from 'qs';
 
 export default async function GameCate() { 
 
-  const gameId = `xp3jhthxfvujqao2u6d1obyx`;
+  const gameId = `s5wlxgr6vhmmezz9biyg2mue`;
 
   const COMPONENT_MAP = {
     "support.artical": ArticalCard,
@@ -62,9 +62,7 @@ const comTitle = "Hot Indno 01 games";
 const imageField = image;
 const imageUrl = getStrapiMedia(imageField?.url);
 const imageAlt = imageField?imageField.alternativeText:comTitle;
-//console.log(playgames);
-  //console.log(gamefaq);
-  //console.log(pagename); console.log(description);  console.log(image); console.log(gamefaq);console.log(gamebody);    
+//console.log(playgames); 
 
 
 /* */
@@ -73,7 +71,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
          {/* Herogame Section */}
         <section className="herogame-section  max-h-100">
 
-          <img src={imageUrl??""} alt={imageAlt}    width={1360} height={414} />       
+          {imageUrl && imageUrl !== "" ? (<img src={imageUrl} alt={imageAlt}    width={1360} height={414} />) : null}        
       
         </section>
 

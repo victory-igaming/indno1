@@ -21,7 +21,7 @@ import { motion } from "framer-motion";
 
 const Marquee = ({ children, speed = 300 }: { children: React.ReactNode, speed?: number }) => {
   return (
-    <div className="mx-auto max-w-300 w-full overflow-hidden select-none bg-transparent">
+    <div className="grid grid-cols-1 mx-auto max-w-280 w-full overflow-hidden select-none bg-transparent">
       <motion.div
         className="flex shrink-0 items-center gap-10 pr-10"
         animate={{
@@ -56,11 +56,12 @@ export default function Provider({Classname}: any) {
         async function fetchData() {
           try {
                const catfinalUrl = `sponsors?${queryCat}`;
-          const  responsecat = await strapiFetch(catfinalUrl);
+               const  responsecat = await strapiFetch(catfinalUrl);
             
             if (responsecat?.data) {
               setData(responsecat.data);
             }
+
           } catch ({err}:any) {
             if (err.name !== 'AbortError') {
               console.error("Fetch error:", err);

@@ -41,6 +41,7 @@ const query = qs.stringify({
     },
   },
   populate: {
+    gamebanner: { populate: '*' },
     gameicon: { populate: '*' },
     gamecategoties: { populate: '*' },
     bodysponce: { populate: '*' },
@@ -57,11 +58,11 @@ const response = await strapiFetch(finalUrl);
 if (!response || !response.data?.[0]) {
   return <div>Loading or Error...</div>; 
 }
-const { gamename, description, gameicon, heroimage, bodysponce} = response.data?.[0];
+const { gamename, description, gameicon, gamebanner, bodysponce} = response.data?.[0];
 //const myData = response.data;
 
 const comTitle = `Hot Indno 01 ${gamename}`;
-const imageField = heroimage?heroimage:gameicon;
+const imageField = gamebanner?gamebanner:gameicon;
 const imageUrl = getStrapiMedia(imageField?.url);
 const imageAlt = imageField?imageField.alternativeText:comTitle;
 
@@ -71,7 +72,8 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
          {/* Herogame Section */}
         <section className="herogame-section max-h-100">
 
-          <img src={imageUrl??""} alt={imageAlt}    width={1360} height={200} />       
+          
+          {imageUrl && imageUrl !== "" ? (<img src={imageUrl} alt={imageAlt}    width={1360} height={200} />) : null}       
       
         </section>
 
