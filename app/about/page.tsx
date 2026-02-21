@@ -1,10 +1,14 @@
 
+
+
 import { strapiFetch } from "../services/strapi";
 import StarCard  from "../components/blocks/Starcard";
 import ValueCard  from "../components/blocks/Valuecard";
 import journeyCard  from "../components/blocks/Journeycard";
 import EmployeCard  from "../components/blocks/Employecard";
 import qs from 'qs';
+
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
  const stats = [
     { number: '10M+', label: 'Active Players' },
@@ -49,11 +53,9 @@ export default async function Aboutus() {
 const query = qs.stringify({
   fields: ['name', 'seourl', 'createdAt', 'publishedAt', 'updatedAt'],
   populate: {
-    heading: { populate: '*' },
-    
+    heading: { populate: '*' },    
     startcard: { populate: '*' },
-    about: { populate: '*' },
-   
+    about: { populate: '*' },   
     ourcore: { populate: '*' },
     journey: { populate: '*' },
     leadership: { populate: '*' },
@@ -64,7 +66,7 @@ const query = qs.stringify({
 
 const finalUrl = `aboutus?${query}`;
 
-//console.log(finalUrl);
+console.log(finalUrl);
 
     const response = await strapiFetch(finalUrl);
    // console.log(response);
@@ -102,8 +104,11 @@ const { heading, about, startcard, ourcore, journey, leadership } = response.dat
           <div className="story-section">
             <h2 className="section-title">{about.name}</h2>
              <p className="story-text">
-              {about.description}
-            </p>           
+            
+              
+                {about.moredescription && <BlocksRenderer content={about.moredescription} />}
+            </p> 
+                      
           </div>
 
           {/* Our Values */}
@@ -130,17 +135,6 @@ const { heading, about, startcard, ourcore, journey, leadership } = response.dat
           })}
           </div>
 
-          {/* Team Section */}
-          <h2 className="section-title">Meet Our Leadership Up</h2>
-          <p className="section-subtitle">
-            The dedicated team driving innovation and excellence at IND NO1
-          </p>
-          <div className="team-grid">
-           {leadership.map((item: any) => {
-            const Component = COMPONENT_MAP[item.__component as keyof typeof COMPONENT_MAP];
-            return Component ? <Component key={`ldrshp-${item.id}`} {...item} /> : null;
-          })}
-          </div>
 
           {/* CTA Section */}
           <div className="cta-section">

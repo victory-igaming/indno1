@@ -34,7 +34,7 @@ export default async function BlogDetails({
     "block.tipdanger": TipdangerCard,    
   };
 const { slug } = await params;
- console.log(slug);
+ //console.log(slug);
 
 const query = qs.stringify({
   filters: {

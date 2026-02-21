@@ -2753,6 +2753,51 @@
 
 }
 
+.vedio-box {
+    background: linear-gradient(to bottom right, rgba(202, 138, 4, 0.2), rgba(161, 98, 7, 0.1));
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(202, 138, 4, 0.3);
+    margin-bottom: 3rem;
+}
+
+.vedio-box iframe {
+   width: 100%;
+   height: 300;
+}
+
+
+    /* -------------------------------------  Pagination ---------------------------------- */
+  .pagination-controls {
+    background: linear-gradient(to bottom right, #3d2415, #2a1810);
+    border: 1px solid #ca8a044d;
+    border-radius: .75rem;
+    margin-bottom: 1rem;
+    transition: all .3s;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .pagination-controls {
+  @apply flex items-center justify-between w-full mt-[20px] p-5 bg-[#1a0f00] rounded-xl border border-[#3d2b00];
+}
+
+   .pagination-Link{
+         color: #ca8a04;
+        font-size: 1.1rem;
+        transition: transform .3s;
+         justify-content: space-around;
+  }
+   .pagination-curent{
+        color: #fff;
+        font-size: 1rem;
+        transition: transform .3s;
+        align-items: center;
+  }
+
+  .pagination-Link {
+  @apply flex items-center gap-2 px-4 py-2 rounded-lg transition-all border border-[#3d2b00] text-[#ffb800] hover:bg-[#2a1a00];
+}
      /* -------------------------------------  media ---------------------------------- */
 
    
@@ -2820,15 +2865,30 @@
     padding: 20px 0;
   }
 
-  .nav-menu {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
+.nav-menu {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.vedio-box iframe {
+   width: 100%;
+   height: 300;
+}
+
+
+
+
+   /*  ----------------- From Pages ---------------------  */
 
     .header-button{
       margin-right: 30px !important;
     }
+
+
+    .featured-grid, .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
 }
 
@@ -3012,11 +3072,48 @@
   }
 
 
+
+  /*  ----------------- From Pages ---------------------  */
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .featured-grid, .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .stats-grid, .values-grid, .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .vedio-box iframe {
+        width: 100%;
+        height: 300;
+      }
+
 }
 
 
 /* Show dots only on Desktop (lg breakpoint) */
 @media (min-width: 1024px) {
+
   .dots-container,
   .control-dots,
   .carousel .control-dots {
@@ -3028,6 +3125,11 @@
         width: 100%;
   }
 
+  .vedio-box iframe {
+    width: 100%;
+    height: 450;
+  }
+
 }
 
 
@@ -3037,19 +3139,20 @@
     text-align: center;
   }
 }
+
 @media screen and (min-width: 1200px) and (max-width: 1499px) {
   .hero-banner {
     max-width: 77rem;
     text-align: center;
   }
 }
+
 @media screen and (min-width: 899px) and (max-width: 1199px) {
   .hero-banner {
     max-width: 70rem;
     text-align: center;
   }
 }
-
 
 .mobIcon{
     position: absolute;

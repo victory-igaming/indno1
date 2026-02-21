@@ -1,6 +1,6 @@
 
 import { getBlogBySlug,getStrapiMedia,strapiFetch } from "@/services/strapi";
-
+import YoutubeVideo  from "@/components/Youtube";
 
 import ArticalCard  from "@/components/blocks/ArticalCard";
 import ImgLftCard  from "@/components/blocks/ImgLftCard";
@@ -58,7 +58,7 @@ const response = await strapiFetch(finalUrl);
 if (!response || !response.data?.[0]) {
   return <div>Loading or Error...</div>; 
 }
-const { gamename, description, gameicon, gamebanner, bodysponce} = response.data?.[0];
+const { gamename, description, gameicon, gamebanner, bodysponce, youtubeurl} = response.data?.[0];
 //const myData = response.data;
 
 const comTitle = `Hot Indno 01 ${gamename}`;
@@ -71,16 +71,15 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
           <>
          {/* Herogame Section */}
         <section className="herogame-section max-h-100">
-
-          
+                    
           {imageUrl && imageUrl !== "" ? (<img src={imageUrl} alt={imageAlt}    width={1360} height={200} />) : null}       
       
         </section>
 
           <div className="intro-box">
-            <h1> Indno1 Game Sponsors  {gamename}</h1>
+            <h1>{gamename}</h1>
             <p className="intro-text">
-           {description}
+              {description}
             </p>
             
           </div>
@@ -97,10 +96,16 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
             
           </article> 
 
-
-
+           {/* Youtube Content */}
+          {
+            youtubeurl && (
+            <div className="vedio-box">
+              <YoutubeVideo srcurl={youtubeurl} />
+        
+            </div>
+            )
+          }
        
-         
          
 
          

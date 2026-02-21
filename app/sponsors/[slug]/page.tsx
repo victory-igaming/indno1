@@ -1,4 +1,4 @@
-import { strapiFetch } from "@/services/strapi";
+import { strapiFetch,getStrapiMedia } from "@/services/strapi";
 import ArticalCard from "@/components/blocks/ArticalCard";
 import ImgLftCard from "@/components/blocks/ImgLftCard";
 import ImgRthCard from "@/components/blocks/ImgRthCard";
@@ -9,51 +9,42 @@ import qs from "qs";
 
 export const revalidate = 60;
 
-/* ================================
-   Component map (unchanged)
-================================ */
-const COMPONENT_MAP = {
-  "support.artical": ArticalCard,
-  "support.image-left": ImgLftCard,
-  "support.image-right": ImgRthCard,
-  "block.tipwarn": TipwarnCard,
-  "block.tipsuccess": TipsuccessCard,
-  "block.tipdanger": TipdangerCard,
-};
 
-/* ================================
-   FIX 1: SAFE media resolver
-   Matches YOUR Strapi JSON
-================================ */
-function resolveMedia(media: any) {
-  if (!media || !media.url) {
-    return null;
-  }
-
-  return {
-    url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${media.url}`,
-    alt: media.alternativeText ?? "Indno1 Sponsor",
-  };
-}
-
-export default async function SponsorDetails({
-  params,
-}: {
-  params: { slug: string }; // FIX 2: params is NOT a Promise
+export default async function SponsorDetails({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
 }) {
-  const { slug } = params;
 
-  const query = qs.stringify(
-    {
-      filters: {
-        seourl: { $eq: slug },
-      },
-      populate: "*",
+ const gameId = `ltu5pmvk3ks0ztofpmsj74ih`;
+
+  const COMPONENT_MAP = {
+    "support.artical": ArticalCard,
+    "support.image-left": ImgLftCard,
+    "support.image-right": ImgRthCard,
+    "block.tipwarn": TipwarnCard,
+    "block.tipsuccess": TipsuccessCard,
+    "block.tipdanger": TipdangerCard,    
+  };
+const { slug } = await params;
+ console.log(slug);
+
+const query = qs.stringify({
+  filters: {
+    seourl: { // Make sure this matches your Strapi field name (case-sensitive)
+      $eq: encodeURIComponent(slug),
     },
-    { encodeValuesOnly: true },
-  );
+  },
+  populate: {
+    heroimage : { populate: '*' },
+    bodysponce : { populate: '*' },    
+  },
+}, { encodeValuesOnly: true });
 
-  const response = await strapiFetch(`sponsors?${query}`);
+const finalUrl = `sponsors?${query}`;
+console.log(`response ${finalUrl}`);
+const response = await strapiFetch(finalUrl);
+
   const sponsor = response?.data?.[0];
 
   /* ================================
@@ -68,19 +59,21 @@ export default async function SponsorDetails({
   /* ================================
      FIX 4: heroimage fallback → logo
   ================================ */
-  const image = resolveMedia(heroimage) ?? resolveMedia(logo);
+
+const comTitle = `Hot Indno 01 ${name}`;
+const imageField = heroimage;
+const imageUrl = getStrapiMedia(imageField?.url);
+const imageAlt = imageField?imageField.alternativeText:comTitle;
 
   return (
     <>
       {/* Hero Section */}
       <section className="herogame-section max-h-100">
-        {image && (
-          <img src={image.url} alt={image.alt} width={1360} height={200} />
-        )}
+          {imageUrl && imageUrl !== "" ? (<img src={imageUrl} alt={imageAlt}    width={1360} height={200} />) : null}    
       </section>
 
       <div className="intro-box">
-        <h1>Indno1 Game Sponsors {name}</h1>
+        <h1>{name}</h1>
         <p className="intro-text">{description}</p>
       </div>
 

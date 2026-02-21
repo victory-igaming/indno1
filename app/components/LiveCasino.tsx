@@ -63,8 +63,11 @@ export default function LiveCasino() {
 
 
 
-const liveCasinoList  = data;
+//const responsecat  = data;
+let liveCasinoList = data || [];
 //console.log(liveCasinoList); 
+// 2. Shuffle the array and take the first 6
+const randomCategories = liveCasinoList.sort(() => Math.random() - 0.5).slice(0, 6);
 
 
   return (

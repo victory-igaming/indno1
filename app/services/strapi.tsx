@@ -32,6 +32,7 @@ export async function strapiFetch(path: string) {
   try {
     const res = await fetch(fullUrl, {
       // ✅ ISR — allows static build + periodic refresh
+      // cache: 'no-store',
       next: { revalidate: 60 }, // change to 300 / 600 if needed
     });
 
@@ -45,6 +46,7 @@ export async function strapiFetch(path: string) {
     console.error("Could not fetch from Strapi:", error);
     return null;
   }
+
 }
 
 /**

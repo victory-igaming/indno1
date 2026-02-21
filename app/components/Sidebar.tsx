@@ -13,6 +13,7 @@ const ChevronRight = () => (
 
   const sidebarItems = [
     { id: 'hot', label: 'Hot', icon: '🔥', image: '/sideicon/hot.png' , href:'/hot' },
+    { id: 'slots', label: 'Slots', icon: '🔥', image: '/sideicon/slots.png' , href:'/slots' },
     { id: 'casino', label: 'Casino', icon: '🎰', image: '/sideicon/casino.png' , href:'/casino' },
     { id: 'sports', label: 'Sports', icon: '⚽', image: '/sideicon/sports.png' , href:'/sports' },
     { id: 'cockfight', label: 'Cock Fight', icon: '🐓', image: '/sideicon/cockfighting.png' , href:'/cockfight' },
@@ -38,12 +39,10 @@ export default function Sidebar() {
                 className={`nav-btn ${activeSection === item.id ? 'nav-btn-active' : 'nav-btn-inactive'}`}
               >
                 
-                <NextImage  src={item.image}  alt={item.label}  width={30}  height={30}  priority unoptimized
-                              />
+  {item.image && item.image !== "" ? ( <NextImage  src={item.image}  alt={item.label}  width={30}  height={30}  priority unoptimized
+                              /> ) : null}
 
                 {/* <span className="nav-icon">{item.icon}</span> */}
-
-
                 {item.label}
                 <span className="nav-chevron"><ChevronRight /></span>
               </button></Link> 

@@ -55,7 +55,7 @@ const Hero = ({ slides }: HerobannerProps) => {
 
           return (
             <section key={slide.id || index} className="relative w-full overflow-hidden"> 
-              <NextImage 
+                {imageUrl && imageUrl !== "" ? (  <NextImage 
                 src={imageUrl} 
                 alt={slide?.image?.alternativeText || slide?.name || "Hero Slide"} 
                 width={1360} 
@@ -63,7 +63,7 @@ const Hero = ({ slides }: HerobannerProps) => {
                 className="w-full h-auto object-cover"
                 priority={index === 0} // Only priority for the first slide
                 unoptimized
-              />
+              /> ) : null } 
             </section>
           );
         })}
