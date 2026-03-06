@@ -38,11 +38,11 @@ const Hero = ({ slides }: HerobannerProps) => {
   };
 
   return (
-    <div className="hero-banner  mx-auto max-w-328 h-200">
+    <div className="hero-banner mx-auto max-w-7xl h-200">
       <Carousel 
         responsive={responsive}
         infinite={true}
-        autoPlay={true}
+        autoPlay={false}
         autoPlaySpeed={5000} // Normal slider speed (5 seconds)
         arrows={false} 
         showDots={false}
@@ -54,8 +54,12 @@ const Hero = ({ slides }: HerobannerProps) => {
           if (!imageUrl) return null;
 
           return (
-            <section key={slide.id || index} className="relative w-full overflow-hidden"> 
-                {imageUrl && imageUrl !== "" ? (  <NextImage 
+            <section key={slide.id || index} className="relative w-full  overflow-hidden">               
+
+               {imageUrl && (
+    <>
+      {/* Background Image */}
+      <NextImage 
                 src={imageUrl} 
                 alt={slide?.image?.alternativeText || slide?.name || "Hero Slide"} 
                 width={1360} 
@@ -63,7 +67,29 @@ const Hero = ({ slides }: HerobannerProps) => {
                 className="w-full h-auto object-cover"
                 priority={index === 0} // Only priority for the first slide
                 unoptimized
-              /> ) : null } 
+              />
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      {/* Text Content */}
+      <div className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-12 z-10 text-white slider-content">
+        
+        <h2 className="text-lg sm:text-2xl md:text-4xl font-bold mb-2  slider-name">
+          {slide.name}
+        </h2>
+
+        <p className="text-xs sm:text-sm md:text-lg max-w-xl mb-4 slider-description">
+          {slide.description}
+        </p>
+
+        <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-lg transition duration-300 slider-button">
+          Play Now
+        </button>
+
+      </div>
+    </>
+  )}
             </section>
           );
         })}

@@ -85,7 +85,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
             {/* Main Content */}
           <article className="article-content">
 
-        <div className="content-block">
+        <div className="content-block strapi-rich-text">
           {pagebody.map((item: any,idx: any) => {
             const Component = COMPONENT_MAP[item.__component as keyof typeof COMPONENT_MAP];
             return Component ? <Component key={`aticl-${idx}`} {...item} /> : null;

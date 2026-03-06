@@ -118,62 +118,64 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
       /></div></Link>
               <div>
              
-                <div className="logo-subtitle hidden sm:block">Most Trusted<br/>Gaming & Betting<br/>Website</div>
+                <h1 className="logo-subtitle hidden sm:block">Most Trusted<br/>Gaming & Betting<br/>Website</h1>
               </div>
             </div>
             {!isMobile && (
 <nav className={`nav-container ${isMenuOpen ? 'nav-open' : 'nav-closed'}`}>
               <ul className="nav-menu">
+
                 <li><Link className={(
                    
                    `nav-link  ${pathname === "/"?"nav-link-active":""}`
                    
                 )} href="/">Home</Link></li>
+
                 <li><Link className={(
                    
-                   `nav-link  ${pathname === "/about"?"nav-link-active":""}`
+                   `nav-link  ${pathname === "/casino"?"nav-link-active":""}`
                    
-                )} href="/about">About Us</Link></li>
+                )} href="/casino">Casino</Link></li>
+
                 <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/sports"?"nav-link-active":""}`
+                   
+                )} href="/sports">Sports</Link></li>               
+
+                <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/lottery"?"nav-link-active":""}`
+                   
+                )} href="/lottery">Lottery</Link></li>
+
+                 <li><Link className={(
                    
                    `nav-link  ${pathname === "/blog"?"nav-link-active":""}`
                    
                 )} href="/blog">Blog</Link></li>
+
+                 <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/support/affiliate"?"nav-link-active":""}`
+                   
+                )} href="/support/affiliate">Affiliate</Link></li>
+
+                <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/support/vip-club"?"nav-link-active":""}`
+                   
+                )} href="/support/vip-club">VIP</Link></li>              
+              
+
                 <li><Link className={(
                    
                    `nav-link  ${pathname === "/faq"?"nav-link-active":""}`
                    
-                )} href="/faq">FAQ</Link></li>
-                
-            
-               
-               
-               <li><Link className={(
-                   
-                   `nav-link  ${pathname === "/affiliate"?"nav-link-active":""}`
-                   
-                )} href="/affiliate">Affiliate</Link></li>
-               {/*   
-                <li><Link className={(
-                   
-                   `nav-link  ${pathname === "/terms"?"nav-link-active":""}`
-                   
-                )} href="/terms">Terms & Conditions</Link></li>
-
-
-               <li><Link className={(
-                   
-                   `nav-link  ${pathname === "/contact"?"nav-link-active":""}`
-                   
-                )} href="/contact">Contact</Link></li>
-
-
-                {/* <li><Link className="nav-link" href="/blogdetails">Blog Data</Link></li> */}
+                )} href="/faq">FAQ</Link></li>       
                  
                 
-              </ul>
-
-                          
+              </ul>                        
               
               
             </nav>
@@ -188,48 +190,51 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                    `nav-link  ${pathname === "/"?"nav-link-active":""}`
                    
                 )} href="/">Home</Link></li>
+
                 <li><Link className={(
                    
-                   `nav-link  ${pathname === "/about"?"nav-link-active":""}`
+                   `nav-link  ${pathname === "/casino"?"nav-link-active":""}`
                    
-                )} href="/about">About Us</Link></li>
+                )} href="/casino">Casino</Link></li>
+
+<li><Link className={(
+                   
+                   `nav-link  ${pathname === "/sports"?"nav-link-active":""}`
+                   
+                )} href="/sports">Sports</Link></li>               
+
                 <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/lottery"?"nav-link-active":""}`
+                   
+                )} href="/lottery">Lottery</Link></li>
+
+                 <li><Link className={(
                    
                    `nav-link  ${pathname === "/blog"?"nav-link-active":""}`
                    
                 )} href="/blog">Blog</Link></li>
+
+                 <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/support/affiliate"?"nav-link-active":""}`
+                   
+                )} href="/support/affiliate">Affiliate</Link></li>
+
+                <li><Link className={(
+                   
+                   `nav-link  ${pathname === "/about"?"nav-link-active":""}`
+                   
+                )} href="/vip">VIP</Link></li>   
+              
+
                 <li><Link className={(
                    
                    `nav-link  ${pathname === "/faq"?"nav-link-active":""}`
                    
                 )} href="/faq">FAQ</Link></li>
-                
-            
+
                
-               
-               <li><Link className={(
-                   
-                   `nav-link  ${pathname === "/affiliate"?"nav-link-active":""}`
-                   
-                )} href="/affiliate">Affiliate</Link></li>
-               {/*   
-                <li><Link className={(
-                   
-                   `nav-link  ${pathname === "/terms"?"nav-link-active":""}`
-                   
-                )} href="/terms">Terms & Conditions</Link></li>
-
-
-               <li><Link className={(
-                   
-                   `nav-link  ${pathname === "/contact"?"nav-link-active":""}`
-                   
-                )} href="/contact">Contact</Link></li>
-
-
-                {/* <li><Link className="nav-link" href="/blogdetails">Blog Data</Link></li> */}
-                 
-                
               </ul>
 
                { isMobile && (
@@ -317,7 +322,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
 </div>
 
 
-               {!isMobile && (
+               { /* !isMobile && (
               <div className="flag-icon">
                 <NextImage 
         src="/images/en.png" 
@@ -329,7 +334,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
         style={{height:'auto'}}
       />
               </div>
-                  )}
+                  ) */}
 
 
             </div>

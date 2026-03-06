@@ -24,7 +24,7 @@ import qs from 'qs';
   }, { encodeValuesOnly: true });
 
 
-export default function LiveCasino() {
+export default function TrandingSport() {
 
   const [data, setData] = useState<any[] | null>(null);
   const [error, setError] = useState(false);
@@ -63,8 +63,11 @@ export default function LiveCasino() {
 
 
 
-const liveCasinoList  = data;
+//const responsecat  = data;
+let liveCasinoList = data || [];
 //console.log(liveCasinoList); 
+// 2. Shuffle the array and take the first 6
+const randomCategories = liveCasinoList.sort(() => Math.random() - 0.5).slice(0, 6);
 
 
   return (
@@ -72,7 +75,7 @@ const liveCasinoList  = data;
     <div className="live-section">
 
               <div className="section-header">
-                <h3 className="section-title">♠️ Live Casino</h3>
+                <h3 className="section-title">🎮 Trending Sport</h3>
                
               </div>
               <div className="casino-grid">
@@ -82,7 +85,7 @@ const liveCasinoList  = data;
            
             return(
             
-            <div key={kkids} className="casino-item" >
+             <div key={kkids} className="casino-item" >
                <Link className="nav-link" href={`/playgame/${lcasino.seourl}`} key={lcasino.id} >
            
            {imageUrl && imageUrl !== "" ? (<img  src={imageUrl}  alt={lcasino.title}  width={210}  height={400}   />) : null} 

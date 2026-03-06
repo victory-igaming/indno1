@@ -113,9 +113,9 @@ export default function SportsTabs() {
   const displayData = liveRacing[activeTab] || [];
 
   return (
-    <div className="w-full bg-[#1a0f00] p-4 rounded-xl border border-[#3d2b00] text-[#ffb800]">
+    <div className="w-full bg-[#261007] p-4 rounded-xl border border-[#eab308] text-[#ffb800]">
       {/* Tab Header Area */}
-      <div className="flex items-center gap-2 mb-6 border-b border-[#3d2b00] pb-2 overflow-x-auto no-scrollbar">
+      <div className="flex items-center gap-2 mb-6 border-b border-[#eab308] pb-2 overflow-x-auto no-scrollbar">
         {sportsCategories.map((sport) => (
           <button
             key={sport.id}

@@ -8,10 +8,12 @@ import Herobanner from '@/components/Hero';
 import Featuredgames from '@/components/FeaturedGames';
 import Sports from '@/components/Sports';
 import Featuredsports from '@/components/FeaturedSports';
-import SportsTabs from '@/components/sporttab';
+import CasinoBets from '@/components/CasinoBets';
 import LiveCasino from '@/components/LiveCasino';
+import TrandingGame from '@/components/TrandingGame';
+import TrandingSport from '@/components/TrandingSport';
 import Slots from '@/components/Slots';
-import LotteryDraw from '@/components/LotteryDraw';
+import TrandingFaq from '@/components/TrandingFaq';
 import Provider from '@/components/Provider';
 
 
@@ -22,6 +24,7 @@ import Provider from '@/components/Provider';
       sportbody: { populate: '*' },    
       mainslider: { populate: '*' },   
       Featuregame: { populate: '*' }, 
+      faqbody: { populate: '*' }, 
     },    
     sort: ['updatedAt:desc'],
     status: 'published',
@@ -41,6 +44,7 @@ export default function Home() {
       
           async function fetchData() {
             try {
+				
                 const qeryResponce = `landingpage?${queryHome}`;
                 const  response = await strapiFetch(qeryResponce);
               
@@ -68,7 +72,7 @@ export default function Home() {
     const sliderImages = data?.data.mainslider;
     const sportbodyImages = data?.data.sportbody;
     const featuregame = data?.data.Featuregame;
-    
+    const faqgame = data?.data.faqbody;
     //const { title, mainslider, sportbody} = homeList?.data;
     //console.log("data : ", data?.data); 
     //console.log(" mainslider : ", sliderImages);
@@ -87,31 +91,28 @@ return (
                   {/* Casino & Sports */}
                   <Sports />
 
+                  {/* Live Casino */}
+                  <TrandingGame/>
 
-                    {/* Featured Sports */}
-                    <Featuredsports sportbanner={sportbodyImages || []}/>
+                  {/* Live Casino */}
+                  <TrandingSport/>
 
-                    {/* Live Sports */}
-                    <SportsTabs/>
+                  {/* Live Casino */}
+                  <LiveCasino/>                   
 
-
-                    {/* Live Casino */}
-                    <LiveCasino/>
-
+                  {/* Live Sports */}
+                  <CasinoBets/>
                     
-                    {/* Slots */}
-                    <Slots/>
+                  {/* Slots */}
+                  <Slots/>
 
+                  {/* TrandingFaq */}
+                  <TrandingFaq faqitem={faqgame}/>
 
-                    {/* Upcoming Lottery Draw */}
-                    <LotteryDraw/>
-
-
-
-                    {/* Provider Logos */}
-                    <div className="providers">
-                      <Provider Classname="provider-logo"/> 
-                    </div>
+                  {/* Provider Logos */}
+                  <div className="providers">
+                    <Provider Classname="provider-logo"/> 
+                  </div>
                       
 
           </>    

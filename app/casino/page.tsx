@@ -30,7 +30,7 @@ export default async function GameCate() {
   };
 
 const query = qs.stringify({
-  fields: ['pagename', 'seourl','description'],
+  fields: ['pagename', 'pagename', 'seourl','description'],
   populate: {
     image: { populate: '*' },
     gamebody: { populate: '*' },
@@ -106,7 +106,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
                               
                             {playgames.map((lcasino: any,idx: any) => {
                              
-                              return <GameSlots key={`gmslt-${idx}`} title={lcasino.title} seourl={lcasino.seourl}  image={lcasino.gameicon}   />   ;
+                              return <GameSlots key={`gmslt-${idx}`} title={lcasino.gamename} seourl={lcasino.seourl}  image={lcasino.gameicon}   />   ;
                             })}
 
                            

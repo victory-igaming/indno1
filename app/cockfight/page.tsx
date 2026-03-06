@@ -105,8 +105,9 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
                          <div className="casino-grid">
                               
                             {playgames.map((lcasino: any,idx: any) => {
-                             
-                              return <GameSlots key={`gmslt-${idx}`} title={lcasino.title} seourl={lcasino.seourl}  image={lcasino.gameicon}   />   ;
+
+                              return <GameSlots key={`gmslt-${idx}`} title={lcasino.gamename} seourl={lcasino.seourl}  image={lcasino.gameicon}   />;
+                              
                             })}
 
                            

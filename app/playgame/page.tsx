@@ -95,7 +95,7 @@ if (!games.length) return <div>No games found.</div>;
                 //const imageUrl = getStrapiMedia(imageField?.url);
              
                 return (
-                      <GameSlots  key={`game-${game.id}`} title={game.title}  seourl={game.seourl} image={game.gameicon} 
+                      <GameSlots  key={`game-${game.id}`} title={game.gamename}  seourl={game.seourl} image={game.gameicon} 
                 />
                 )}
              

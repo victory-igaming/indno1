@@ -68,7 +68,7 @@ export default  async function Terms() {
 
           <div className="intro-box">
             
-             <div> 
+            <div> 
                  {description?.map((block: any, idx: number) => (
                     <div key={idx} >
                       {block?.children.map((child: any, cIdx: number) => (
@@ -76,7 +76,7 @@ export default  async function Terms() {
                       ))}
                     </div>
                   ))}               
-            </div>  
+            </div>
           
          </div> 
 
