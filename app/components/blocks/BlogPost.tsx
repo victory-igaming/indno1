@@ -23,6 +23,8 @@ export default function BlogList({ blogs }:any) {
                 src={blog.image.url} 
                 alt={blog.heading} 
                 className="w-full h-48 object-cover"
+                loading="lazy" 
+                fetchPriority="high"
               />
             )}
             

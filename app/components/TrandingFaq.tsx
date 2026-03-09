@@ -51,7 +51,7 @@ const query = qs.stringify({
 
   function TrandingFaq({ faqitem }: { faqitem: any[] }) { 
  
-    //console.log("TrandingFaq", faqitem);
+    // 
    // const [isOpen, setIsOpen] = useState(false);
     const [openFAQ, setOpenFAQ] = useState(null);
 
@@ -61,11 +61,13 @@ const query = qs.stringify({
 
   return (
     
-    <div className="">
-
+    <div >
+          <h2 className="faq-title">🕵️‍♂️ FAQ </h2>
+         
        {faqitem.map((faq: any, index) => {
          return (
             <div key={index} className="faq-item">
+                    
                     <div className="faq-question2"   onClick={() => {  toggleFAQ(index); } } >
                       <div className="question-text">{faq.name}</div>
                       <div className={`toggle-icon transform transition-transform ${openFAQ === index ? 'rotate-180' : ''} `}> ▼ </div>

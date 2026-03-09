@@ -37,7 +37,9 @@ export default function FeaturedSports({ sportbanner }: { sportbanner: any[] }) 
               alt={sport?.alternativeText || sport?.title || "Sport image"}
               width={20} 
               height={20}
-              unoptimized // Bypasses the Private IP error we saw earlier
+              priority 
+              unoptimized 
+              loading="lazy"
             />
           )} {sport.title}</div>
                  

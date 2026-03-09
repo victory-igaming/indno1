@@ -26,6 +26,8 @@ export default function CommentForm({
         <input
           type="text"
           className="form-input"
+          placeholder='Name'
+          title='Name'
           required
           value={comment.name}
           onChange={(e) => setComment({ ...comment, name: e.target.value })}
@@ -36,6 +38,8 @@ export default function CommentForm({
         <input
           type="email"
           className="form-input"
+          placeholder='Email'
+          title='Email'
           required
           value={comment.email}
           onChange={(e) => setComment({ ...comment, email: e.target.value })}
@@ -45,6 +49,8 @@ export default function CommentForm({
         <label className="form-label">Comment *</label>
         <textarea
           className="form-textarea"
+          placeholder='Comment'
+          title='Comment'
           required
           value={comment.message}
           onChange={(e) => setComment({ ...comment, message: e.target.value })}

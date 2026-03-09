@@ -16,9 +16,7 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
               
   <div className="float-right mr-12 mb-12 "> 
                {imageUrl && imageUrl !== "" ? ( 
-           <img src={ imageUrl}  alt={imageAlt}  
-  width={400} height={400} className=" rounded-lg " style={{margin: 2+'em'}} />
-  ) : null} 
+   <img src={ imageUrl}  alt={imageAlt} width={400} height={400} className=" rounded-lg " style={{margin:'2em' }} loading="lazy" fetchPriority="high" />) : null} 
                </div>
              <div>
                   

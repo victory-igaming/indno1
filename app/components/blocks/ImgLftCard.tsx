@@ -17,14 +17,12 @@ const imageAlt = imageField?imageField.alternativeText:comTitle;
       
        <div className="float-left mr-12 mb-12 "> 
          {imageUrl && imageUrl !== "" ? ( 
-           <img src={ imageUrl}  alt={imageAlt}  
-  width={400} height={400} className=" rounded-lg " style={{margin: 2+'em'}} />
-  ) : null} 
+  <img src={ imageUrl}  alt={imageAlt} width={400} height={400} className=" rounded-lg " style={{margin:'2em' }} loading="lazy" fetchPriority="high" />) : null} 
                </div>
 
 
                  <div> 
-                 <BlocksRenderer 
+    <BlocksRenderer 
         content={description} 
         blocks={{
           paragraph: ({ children }) => <p className="text-gray-300 mb-4">{children}</p>,

@@ -82,6 +82,8 @@ export default function Sponsors() {
                   className="object-contain"
                   // Next.js 16/React 19 optimization:
                   loading="lazy" 
+                  fetchPriority="high"
+                  
                 />
 				 ) : null} 
          </Link>

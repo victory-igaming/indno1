@@ -5,6 +5,7 @@ import { getStrapiMedia } from "@/services/strapi";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import React from 'react';
+import Link from 'next/link';
 
 // ... (Your interfaces stay the same)
 
@@ -20,6 +21,7 @@ export interface MainSliderItem {
   id: number;
   name: string;
   description: string;
+  urllink: string;
   image: StrapiImage;
 }
 
@@ -42,7 +44,7 @@ const Hero = ({ slides }: HerobannerProps) => {
       <Carousel 
         responsive={responsive}
         infinite={true}
-        autoPlay={false}
+        autoPlay={true}
         autoPlaySpeed={5000} // Normal slider speed (5 seconds)
         arrows={false} 
         showDots={false}
@@ -50,6 +52,8 @@ const Hero = ({ slides }: HerobannerProps) => {
         itemClass="carousel-item"
       > 
         {slides.map((slide, index) => {
+
+          const linkurlpath = slide?.urllink;
           const imageUrl = getStrapiMedia(slide.image?.url);
           if (!imageUrl) return null;
 
@@ -66,11 +70,11 @@ const Hero = ({ slides }: HerobannerProps) => {
                 height={414} 
                 className="w-full h-auto object-cover"
                 priority={index === 0} // Only priority for the first slide
-                unoptimized
+                unoptimized                
               />
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-linear-to-l from-black/0 via-black/30 to-black/90"></div>
 
       {/* Text Content */}
       <div className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-12 z-10 text-white slider-content">
@@ -82,10 +86,16 @@ const Hero = ({ slides }: HerobannerProps) => {
         <p className="text-xs sm:text-sm md:text-lg max-w-xl mb-4 slider-description">
           {slide.description}
         </p>
-
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-lg transition duration-300 slider-button">
-          Play Now
-        </button>
+        {linkurlpath ? (
+  <Link href={linkurlpath}><button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-lg transition duration-300 slider-button play-now-btn">
+    Play Now
+  </button></Link>
+) : (
+  <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-lg transition duration-300 slider-button play-now-btn">
+    Play Now
+  </button>
+)}
+        
 
       </div>
     </>

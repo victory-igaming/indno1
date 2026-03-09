@@ -101,13 +101,15 @@ return (
                   <LiveCasino/>                   
 
                   {/* Live Sports */}
-                  <CasinoBets/>
+                  <CasinoBets />
                     
                   {/* Slots */}
                   <Slots/>
 
                   {/* TrandingFaq */}
-                  <TrandingFaq faqitem={faqgame}/>
+                  {                    
+                    faqgame && ( <TrandingFaq faqitem={faqgame}/>)
+                  }                 
 
                   {/* Provider Logos */}
                   <div className="providers">

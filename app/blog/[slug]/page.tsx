@@ -47,10 +47,8 @@ function CategoryRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default async function BlogDetails({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogDetails({ params }: {
+  params: Promise<{ slug: string }> 
 }) {
   const COMPONENT_MAP = {
     "support.artical": ArticalCard,
@@ -61,7 +59,7 @@ export default async function BlogDetails({
     "block.tipdanger": TipdangerCard,
   } as const;
 
-  const { slug } = params;
+const { slug } = await params;
 
   const query = qs.stringify(
     {
@@ -79,14 +77,15 @@ export default async function BlogDetails({
   );
 
   const finalUrl = `blogs?${query}`;
+  //console.log(finalUrl);
   const response = await strapiFetch(finalUrl);
+  //console.log(response);
 
   if (!response || !response.data?.[0]) {
     return <div>Loading or Error...</div>;
   }
 
-  const { heading, image, blogbody, faqBody, gamecategoty, createdAt } =
-    response.data[0];
+  const { heading, image, blogbody, faqBody, gamecategoty, createdAt } = response.data[0];
 
   const comTitle = `Hot Indno 01 ${heading}`;
   const imageUrl = getStrapiMedia(image?.url);
@@ -101,10 +100,10 @@ export default async function BlogDetails({
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="h-[260px] w-full object-cover md:h-[340px]"
+            className="h-65 w-full object-cover md:h-85"
           />
         ) : (
-          <div className="h-[260px] w-full bg-zinc-900 md:h-[340px]" />
+          <div className="h-[260px] w-full bg-zinc-900 md:h-85" />
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />

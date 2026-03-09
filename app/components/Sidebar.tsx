@@ -39,8 +39,7 @@ export default function Sidebar() {
                 className={`nav-btn ${activeSection === item.id ? 'nav-btn-active' : 'nav-btn-inactive'}`}
               >
                 
-  {item.image && item.image !== "" ? ( <NextImage  src={item.image}  alt={item.label}  width={30}  height={30}  priority unoptimized
-                              /> ) : null}
+  {item.image && item.image !== "" ? ( <NextImage  src={item.image}  alt={item.label}  width={30}  height={30}   unoptimized loading="lazy" /> ) : null}
 
                 {/* <span className="nav-icon">{item.icon}</span> */}
                 {item.label}

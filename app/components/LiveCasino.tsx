@@ -85,7 +85,7 @@ const liveCasinoList  = data;
             <div key={kkids} className="casino-item" >
                <Link className="nav-link" href={`/playgame/${lcasino.seourl}`} key={lcasino.id} >
            
-           {imageUrl && imageUrl !== "" ? (<img  src={imageUrl}  alt={lcasino.title}  width={210}  height={400}   />) : null} 
+           {imageUrl && imageUrl !== "" ? (<img  src={imageUrl}  alt={lcasino.title}  width={210}  height={400} loading="lazy" fetchPriority="high"  />) : null} 
            </Link>
              <h2 className="casino-item-name"> {lcasino.gamename} </h2>
                   </div>) 

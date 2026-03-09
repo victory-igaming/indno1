@@ -5,22 +5,10 @@ import { strapiFetch, getStrapiMedia } from "../services/strapi";
 import BlogList from '../components/blocks/BlogPost';
 import Link from 'next/link';
 import qs from 'qs';
+import BlogsClient from "@/components/BlogClient";
 
 
 
-
-
-   const ChevronRight = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6"></polyline>
-  </svg>
-);
-
-const ChevronLeft = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6"></polyline>
-  </svg>
-);
 
 
 
@@ -77,13 +65,13 @@ const  responsecat = await strapiFetch("gamepages?populate=*");
 const categories  = responsecat.data;
 //console.log(categories);
 
-const blogCategory = categories.map((item: any) => ({
+const blogCategory = categories?.map((item: any) => ({
     id: item.id,
     title: item.pagename,
     category: item.gamecategoty?.pagename || 'General',
     image: item.image?.url ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.image.url}` : '/placeholder.jpg',
     slug: item.seoUrl
-  }));
+  }))|| [];
 
 //const myData = response.data;
 //console.log(blogs);
@@ -96,85 +84,8 @@ const blogCategory = categories.map((item: any) => ({
  return (
           <>
           {/* Category Filter */}
-          <div className="category-filter">
-           
-              {console.log(blogCategory)}
-              {blogCategory.map((alcategory: any, alindex: number) => (
-                        <button
-                key={alindex}
-                className={`category-btn`}
-                
-              >
-              {alcategory?.title || "No Category"}
-              </button>
-              ))}
-          
-          </div>
-
-
-          {/* All Posts */}
-          <div>
-            <h2 className="section-title">Latest Articles {blogs.heading} </h2>
-            <div className="blog-grid">
-                 {blogs.map((post: any,idx: any) => {
-                 // console.log(`gamecategoty`); console.log(post.gamecategoty);
-				 const imagePath = post.image?.data?.attributes?.url || post.image?.url;
-				 const imageUrl = imagePath ? getStrapiMedia(imagePath) : '/placeholder-image.jpg';
-                 //const imageUrl = getStrapiMedia(post?.image.url);
-                  return (                
-
-                      <div key={post.id} className="blog-card">
-                  <Link className="nav-link" href={`/blog/${post.seoUrl}`} key={post.id} >
-                  <div className="blog-image overflow-hidden">
-                    
-                    {imageUrl && imageUrl !== "" ? ( 
-				  <img  src={imageUrl}  alt={post.heading}   width={600} height={100}  />
-				   ) : null} 
-                    
-                    
-                    </div>
-                  <div className="blog-content">
-                    <span className="post-category"> 
-                    {post.gamecategoty?.pagename || "Uncategorized"}   / {post.id}
-                                         
-                    </span>
-                    <h3 className="blog-title">{post.heading}</h3>
-                    {/* <p className="blog-excerpt">{post.description}</p>
-                    <div className="post-meta">
-                       <span>👤 {post.author}</span>
-                      <span>⏱️ {post.readTime}</span>
-                    </div> */}
-                  </div></Link>
-                </div>
-                  )
-                  
-              })}
-              
-            </div>
-
-            <div className="pagination-controls" style={{ display: 'flex', gap: '10px', marginTop: '20px', alignItems: 'center' }}>
-  
-            {/* Previous Button */}
-            <Link 
-              href={`/blog?page=${currentPage - 1}`}
-              className={`btn pagination-Link ${currentPage <= 1 ? 'disabled' : ''}`}
-              style={{ pointerEvents: currentPage <= 1 ? 'none' : 'auto', opacity: currentPage <= 1 ? 0.5 : 1 }}
-            >
-              <ChevronLeft /> Previous
-            </Link>
-
-            <span className="pagination-curent">Page {pagination.page} of {pagination.pageCount}</span>
-
-            {/* Next Button */}
-            <Link 
-              href={`/blog?page=${currentPage + 1}`}
-              className={`btn pagination-Link ${currentPage >= pagination.pageCount ? 'disabled' : ''}`}
-              style={{ pointerEvents: currentPage >= pagination.pageCount ? 'none' : 'auto', opacity: currentPage >= pagination.pageCount ? 0.5 : 1 }}
-            >
-              Next <ChevronRight />
-            </Link>
-          </div>
-          </div>
+           <BlogsClient categories={blogCategory} blogbody={blogs} pagination={pagination} currentPage={currentPage} />
+         
 
           {/* Newsletter Section */}
           <div className="newsletter-section">

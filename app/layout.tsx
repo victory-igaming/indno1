@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Script from "next/script";
+import { Suspense } from "react";
 
 import Headers from './components/Header';
 import Sponsors from './components/Sponsors';
@@ -104,7 +105,9 @@ export default function RootLayout({
         <div className="gaming-container">
 
            {/* Header */}
+           <Suspense fallback={null}>
            <Headers />
+           </Suspense>
 
             {/* Main Layout */}
             <div className="main-layout">

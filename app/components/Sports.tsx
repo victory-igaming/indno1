@@ -17,7 +17,7 @@ export default function Sports() {
                 <div className="section-content">
                   <p className="section-text">Bet on your favorite sports with real-time odds, <br /> live matches, and fast payouts. <br /> From cricket to football and more — place smart bets and feel every moment of the action.</p>
                   <div className="section-icon2" >
-                    <NextImage src="/images/sports_1.png"  alt="Company Logo"  width={164}  height={164} />                   
+                    <NextImage src="/images/sports_1.png"  alt="Company Logo"  width={164}  height={164}  unoptimized loading="lazy" />                   
                   </div>
                 </div>
               </div>

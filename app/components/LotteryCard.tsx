@@ -18,6 +18,9 @@ export default function LotteryCard() {
                       alt="Indno1 Company Logo" 
                       width={200} 
                       height={200} 
+                       
+                      unoptimized 
+                      loading="lazy"
                     />
     </div>
   )

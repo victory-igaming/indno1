@@ -15,6 +15,8 @@ return (
                     <img 
   src={imageUrl} 
   alt={image?.alternativeText || "image"}  className="h-16 w-16 object-contain mb-4 rounded-md shadow-sm"
+  loading="lazy" 
+  fetchPriority="high"
 />
   ) : null} 
                   </div>

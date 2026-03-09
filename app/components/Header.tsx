@@ -4,6 +4,7 @@ import NextImage from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from "next/navigation";
 
 // Lucide React Icons (you can replace with your preferred icon library)
 const SearchIcon = () => (
@@ -38,6 +39,9 @@ export default function Header() {
   const [isMobile, setIsMobile]         = useState(false);
   const [isMenuOpen, setIsMenuOpen]     = useState(false);
 
+const searchParams = useSearchParams();
+const searchKey = searchParams.get("search");
+
   // State holds the data for the QR code, or 'null' when closed
   const [activeQr, setActiveQr] = useState<string | null>(null);
   const qrData = {
@@ -53,11 +57,13 @@ useEffect(() => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth < 768); // 768px is the standard 'md' breakpoint
     };
-
+     if (searchKey) {
+      setQuery(searchKey);
+    }
     checkDevice(); // Initial check
     window.addEventListener('resize', checkDevice);
     return () => window.removeEventListener('resize', checkDevice);
-  }, []);
+  }, [searchKey]);
 
 
 const handleClick = (item: { code: string; downloadUrl: string }) => {
@@ -93,7 +99,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
     // window.open(URL, Target, Features)
     // '_blank' opens the link in a new tab
     // 'noopener,noreferrer' is a security best practice
-    window.open("https://indno1.com", "_blank", "noopener,noreferrer");
+    window.open("https://4498.indno1f.com", "_blank", "noopener,noreferrer");
   };
   
   return (
@@ -113,8 +119,8 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
         width={60} 
         height={60} 
         style={{height:'auto'}}
-        unoptimized
-        priority
+        unoptimized 
+        loading="lazy"
       /></div></Link>
               <div>
              
@@ -291,6 +297,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   autoFocus={isSearchOpen}
+                  
                 />
                 <span className="search-icon cursor-pointer" onClick={() => setIsSearchOpen(!isSearchOpen)}><SearchIcon /></span>
                 </form>

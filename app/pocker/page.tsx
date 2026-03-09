@@ -83,7 +83,7 @@ export default async function GameCate() {
       </section>
 
       <div className="intro-box">
-        <h1> Indno1 {pagename} Game</h1>
+        <h1>{pagename}</h1>
         <p className="intro-text">{description}</p>
       </div>
 
