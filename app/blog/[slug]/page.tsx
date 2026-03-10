@@ -8,6 +8,7 @@ import TipwarnCard from "../../components/blocks/TipwarnCard";
 import TipsuccessCard from "../../components/blocks/TipsuccessCard";
 import TipdangerCard from "../../components/blocks/TipdangerCard";
 import qs from "qs";
+import Link from "next/link";
 
 /** ✅ Sidebar components styled like article section */
 function SidebarBox({
@@ -20,7 +21,7 @@ function SidebarBox({
   className?: string;
 }) {
   return (
-    <div className={`rounded-2xl border border-amber-500/15 p-6 ${className}`} style={{padding:`10px 14px;`}}>
+    <div className={`rounded-2xl border border-amber-500/15 p-6 ${className}`} style={{padding: "10px 14px"}}>
       <h3 className="text-xl font-bold text-amber-400" >{title}</h3>
       <div className="mt-4 space-y-3" >{children}</div>
     </div>
@@ -29,7 +30,7 @@ function SidebarBox({
 
 function SidebarItem({ title, meta }: { title: string; meta: string }) {
   return (
-    <div className="rounded-xl border border-amber-500/10 bg-black/10 p-4 transition hover:bg-black/20" style={{padding:`10px 14px;`}}>
+    <div className="rounded-xl border border-amber-500/10 bg-black/10 p-4 transition hover:bg-black/20" style={{padding: "10px 14px"}}>
       <p className="line-clamp-2 text-base font-semibold leading-snug text-amber-100">
         {title}
       </p>
@@ -61,29 +62,67 @@ export default async function BlogDetails({ params }: {
 
 const { slug } = await params;
 
-  const query = qs.stringify(
-    {
-      filters: {
-        seoUrl: { $eq: slug },
-      },
-      populate: {
-        image: { populate: "*" },
-        gamecategoty: { populate: "*" },
-        blogbody: { populate: "*" },
-        faqBody: { populate: "*" },
+const query = qs.stringify(
+  {
+    filters: {
+      seoUrl: { $eq: slug },
+    },
+    populate: {
+      image: { populate: "*" },
+      gamecategoty: { populate: "*" },
+      blogbody: { populate: "*" },
+      faqBody: { populate: "*" },
+    },
+  },
+  { encodeValuesOnly: true }
+);
+
+const finalUrl = `blogs?${query}`;
+
+const popularQuery = qs.stringify(
+  {
+    filters: {
+      seoUrl: { $ne: slug },
+    },
+    fields: ["heading", "seoUrl", "createdAt"],
+    sort: ["createdAt:desc"],
+    pagination: {
+      limit: 5,
+    },
+  },
+  { encodeValuesOnly: true }
+);
+
+const categoryQuery = qs.stringify(
+  {
+    populate: {
+      blogs: {
+        fields: ["id"],
       },
     },
-    { encodeValuesOnly: true }
-  );
+    pagination: {
+      limit: 10,
+    },
+  },
+  { encodeValuesOnly: true }
+);
 
-  const finalUrl = `blogs?${query}`;
-  //console.log(finalUrl);
-  const response = await strapiFetch(finalUrl);
-  //console.log(response);
+const [response, popularResponse, categoryResponse] = await Promise.all([
+  strapiFetch(finalUrl),
+  strapiFetch(`blogs?${popularQuery}`),
+  strapiFetch(`gamepages?${categoryQuery}`),
+]);
 
-  if (!response || !response.data?.[0]) {
-    return <div>Loading or Error...</div>;
-  }
+if (!response || !response.data?.[0]) {
+  return <div>Loading or Error...</div>;
+}
+
+const popularPosts = popularResponse?.data || [];
+const categories = categoryResponse?.data || [];
+
+const sortedCategories = [...categories].sort(
+  (a: any, b: any) => (b.blogs?.length || 0) - (a.blogs?.length || 0)
+);
 
   const { heading, image, blogbody, faqBody, gamecategoty, createdAt } = response.data[0];
 
@@ -151,37 +190,34 @@ const { slug } = await params;
             <div className="space-y-8">
               <div className="popularpost-list " >
               <SidebarBox title="Popular Posts">
-                <div className="space-y-2 mt-10"  style={{padding:`12px 14px;`}}>
-                <SidebarItem 
-                  title="Best Investing Books for 2019 | Phil Town"
-                  meta="July 26, 2019"
-                />
-                <SidebarItem
-                  title="Understanding deposits and withdrawals at BC.Game: A Beginner’s Guide Part 2"
-                  meta="August 11, 2020"
-                />
-                <SidebarItem
-                  title="Understanding deposits and withdrawals at BC.Game: A Beginner’s Guide Part 1"
-                  meta="August 3, 2020"
-                /></div>
-                
-                
-              </SidebarBox>
+        <div className="space-y-2 mt-10" style={{ padding: "12px 14px" }}>
+          {popularPosts.map((post: any) => (
+            <Link key={post.id} href={`/blog/${post.seoUrl}`} className="block">
+              <SidebarItem
+                title={post.heading}
+                meta={new Date(post.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              />
+            </Link>
+          ))}
+        </div>
+      </SidebarBox>
               </div>
             <div className="popularpost-list" >
-              <SidebarBox title="Popular Category " className="mt-8 space-y-8">
-                <div className="space-y-2 mt-10"  style={{padding:`10px 14px`}}>
-                  <CategoryRow label="Blockchain" value="3721" />
-                  <CategoryRow label="Investing" value="1883" />
-                  <CategoryRow label="BTC News" value="1695" />
-                  <CategoryRow label="Cryptocurrencies" value="1256" />
-                  <CategoryRow label="Gambling" value="792" />
-                  <CategoryRow label="Meme" value="583" />
-                  <CategoryRow label="Guides" value="542" />
-                  <CategoryRow label="Best Bitcoin Casino" value="427" />
-                  <CategoryRow label="Beginner Guides" value="346" />
-                </div>
-              </SidebarBox>
+              <SidebarBox title="Popular Category">
+  <div className="space-y-2 mt-10" style={{ padding: "10px 14px" }}>
+    {sortedCategories.map((cat: any) => (
+      <CategoryRow
+        key={cat.id}
+        label={cat.pagename}
+        value={cat.blogs?.length || 0}
+      />
+    ))}
+  </div>
+</SidebarBox>
               </div>
 
               {/* FAQ List */}
