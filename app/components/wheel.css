@@ -1,0 +1,295 @@
+.wheel-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: transparent;
+}
+
+.wheel-shell {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 28px rgba(255, 179, 0, 0.45));
+}
+
+.wheel-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 24%, #fff6bc 0%, #ffe16f 11%, #ffba19 34%, #d47b00 72%, #ffcf4a 100%);
+  box-shadow:
+    0 0 0 3px #ffd347,
+    0 0 16px rgba(255, 191, 0, 0.95),
+    0 0 38px rgba(255, 140, 0, 0.42);
+  z-index: 0;
+}
+
+.wheel-shell::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #5d2500 0%, #3f1400 70%, #2a0a00 100%);
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 18px rgba(255, 185, 40, 0.12);
+  z-index: 1;
+}
+
+.wheel-bulb-ring {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgba(255, 248, 190, 0.98) 0 2px, transparent 3px) 50% 7px / 22px 22px repeat;
+  mask: radial-gradient(circle, transparent 0 79%, #000 80% 88%, transparent 89%);
+  -webkit-mask: radial-gradient(circle, transparent 0 79%, #000 80% 88%, transparent 89%);
+  filter: drop-shadow(0 0 5px rgba(255, 230, 110, 0.8));
+  opacity: 0.98;
+}
+
+.wheel {
+  position: relative;
+  width: 308px;
+  height: 308px;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.wheel.spinning {
+  transition: transform 5s cubic-bezier(0.15, 0.8, 0.2, 1);
+}
+
+.wheel-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 6px #ffd04a,
+    inset 0 0 0 12px rgba(110, 47, 0, 0.45),
+    inset 0 14px 18px rgba(255, 255, 255, 0.12),
+    inset 0 -18px 24px rgba(0, 0, 0, 0.28);
+}
+
+.wheel-face-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 18%, rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 50% 50%, rgba(255, 215, 105, 0.1) 0%, rgba(255, 215, 105, 0.04) 34%, rgba(0, 0, 0, 0) 55%),
+    radial-gradient(circle at 50% 78%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.08) 28%, rgba(0, 0, 0, 0) 48%);
+  mix-blend-mode: screen;
+}
+
+.wheel-label-absolute {
+  position: absolute;
+  z-index: 5;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+}
+
+.wheel-label {
+  display: inline-block;
+  min-width: 52px;
+  text-align: center;
+  color: #ffe693;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.1px;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  user-select: none;
+  text-shadow:
+    0 1px 0 #7a3200,
+    0 2px 0 #662400,
+    0 3px 6px rgba(0, 0, 0, 0.55),
+    0 0 2px rgba(0, 0, 0, 0.35);
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.wheel-label-try-again {
+  font-size: 10px;
+  max-width: 40px;
+  white-space: normal;
+  line-height: 1.02;
+  text-align: center;
+}
+
+.wheel-label-absolute-try-again .wheel-label {
+  transform: translate(-50%, -50%);
+}
+
+.wheel-inner-gold-ring {
+  position: absolute;
+  inset: 92px;
+  border-radius: 50%;
+  z-index: 4;
+  background:
+    radial-gradient(circle at 34% 28%, #fff5b4 0%, #ffd04d 30%, #db8600 72%, #9a4f00 100%);
+  box-shadow:
+    0 0 0 4px #ffe062,
+    0 0 14px rgba(255, 196, 42, 0.55),
+    inset 0 2px 7px rgba(255, 255, 255, 0.4),
+    inset 0 -7px 10px rgba(0, 0, 0, 0.35);
+}
+
+.wheel-center-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 108px;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 8;
+  background:
+    radial-gradient(circle at 34% 26%, #ffbd79 0%, #ff7d23 24%, #db2300 66%, #8c1300 100%);
+  box-shadow:
+    0 0 0 6px #ffd553,
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    inset 0 3px 8px rgba(255, 255, 255, 0.34),
+    inset 0 -8px 14px rgba(0, 0, 0, 0.28),
+    0 0 18px rgba(255, 165, 0, 0.52);
+}
+
+.wheel-center-button span {
+  color: #fff4ce;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  text-shadow:
+    0 2px 0 #8a1f00,
+    0 4px 8px rgba(0, 0, 0, 0.38);
+}
+
+.wheel-center-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.92;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 44px;
+  z-index: 10;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.wheel-pointer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0%, 100% 58%, 72% 58%, 50% 100%, 28% 58%, 0% 58%);
+  background:
+    radial-gradient(circle at 50% 16%, #fff8c6 0%, #ffd85c 34%, #f0a300 72%, #bb6a00 100%);
+  border-radius: 10px;
+}
+
+.wheel-pointer::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.wheel-side-arrow {
+  position: absolute;
+  top: 50%;
+  width: 26px;
+  height: 18px;
+  z-index: 9;
+  transform: translateY(-50%);
+}
+
+.wheel-side-arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, #fff2b0 0%, #ffcf46 34%, #ef9f00 72%, #b66600 100%);
+  box-shadow: 0 0 8px rgba(255, 194, 40, 0.5);
+}
+
+.wheel-side-arrow-left {
+  left: 18px;
+}
+
+.wheel-side-arrow-left::before {
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+
+.wheel-side-arrow-right {
+  right: 18px;
+}
+
+.wheel-side-arrow-right::before {
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+@media (max-width: 480px) {
+  .wheel-shell {
+    width: 300px;
+    height: 300px;
+  }
+
+  .wheel {
+    width: 258px;
+    height: 258px;
+  }
+
+  .wheel-label {
+    min-width: 42px;
+    font-size: 12px;
+  }
+
+  .wheel-label-try-again {
+    font-size: 8px;
+    max-width: 32px;
+  }
+
+  .wheel-inner-gold-ring {
+    inset: 78px;
+  }
+
+  .wheel-center-button {
+    width: 92px;
+    height: 92px;
+  }
+
+  .wheel-center-button span {
+    font-size: 19px;
+  }
+
+  .wheel-side-arrow {
+    width: 20px;
+    height: 14px;
+  }
+}

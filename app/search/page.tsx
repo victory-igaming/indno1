@@ -10,6 +10,53 @@ import GameSlots from '@/components/blocks/GameSlots';
 // Assume searchParams.search comes from your URL (?search=yourterm)
 
 
+import { Metadata } from 'next';
+export async function generateMetadata({searchParams}: { searchParams: Promise<{ search?: string }> }): Promise<Metadata> {   
+
+ // const { slug } = await params;
+  const { search } = await searchParams;
+
+    // Manual data object
+  const dataMata = {
+    heading: ` Indno1 |  ${search} | Premium Gaming Experience`,
+    meta_tag: ` Indno1 , ${search}, online gaming, sports analysis, betting platform  `,
+    meta_discrp: ` Indno1 , ${search}, online gaming, sports analysis, betting platform `,
+    google_tagid: "",
+    gamebanner: {
+      name : "",
+      url : ""
+    }
+  };
+
+      
+  if(search){
+
+     return {
+          title: dataMata?.heading || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,     
+          verification: {
+            google: dataMata?.google_tagid || process.env.META_GGTAG,
+          },
+          openGraph: {
+            title: dataMata?.heading,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+
+  }else{
+    return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Search " };
+  }
+  
+   
+     
+      
+   
+   }
+
+
+
 
 
 export default async function Search({ 

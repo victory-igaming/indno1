@@ -3,6 +3,41 @@ import qs from "qs";
 
 import FAQClient from "@/components/FAQClient";
 
+import { Metadata } from 'next';
+export async function generateMetadata({params}: {params: Promise<{ slug: string }>}): Promise<Metadata> {
+
+  const queryMata = qs.stringify({
+        populate: '*',
+      }, { encodeValuesOnly: true });
+
+     try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        const responseMata = await strapiFetch(`faq?${queryMata}`);     
+       // const dataMata = responseMata.data; 
+        //console.log("responseMata : ",responseMata);
+        const dataMata = responseMata.data; 
+        //console.log("dataMata : ",dataMata);
+
+        return {
+          title: dataMata?.title || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,           
+          openGraph: {
+            title: dataMata?.title,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
+
+
 export default async function Faq() {
 
   const query = qs.stringify(

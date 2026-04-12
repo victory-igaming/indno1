@@ -15,7 +15,7 @@ export default function Application() {
 
 
   return (
-    <div className="card">
+    <div className="card hidden lg:block">
         <h3 className="card-title">Application</h3>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
         <div style={{ flex: 1, background: 'black', borderRadius: '0.5rem', padding: '0.5rem', textAlign: 'center' }}>

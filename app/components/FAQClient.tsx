@@ -22,9 +22,9 @@ export default function FAQClient({ categories, faqbody }: any) {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredFAQ = activeCategory === "all" ? faqbody: faqbody.filter((faq: any) => faq.faqtype?.id === activeCategory);
-console.log("activeCategory : ",activeCategory);
-console.log("categories : ",categories);
-console.log("faqbody : ",faqbody);
+ // console.log("activeCategory : ",activeCategory);
+ //console.log("categories : ",categories);
+  //console.log("faqbody : ",faqbody);
   return (
     <>
       {/* Categories */}

@@ -1,122 +1,59 @@
-"use client";
 
-import { useState, useEffect, useMemo } from 'react';
 import { strapiFetch,getStrapiMedia } from "@/services/strapi";
 import qs from 'qs';
 
-import Herobanner from '@/components/Hero';
-import Featuredgames from '@/components/FeaturedGames';
-import Sports from '@/components/Sports';
-import Featuredsports from '@/components/FeaturedSports';
-import CasinoBets from '@/components/CasinoBets';
-import LiveCasino from '@/components/LiveCasino';
-import TrandingGame from '@/components/TrandingGame';
-import TrandingSport from '@/components/TrandingSport';
-import Slots from '@/components/Slots';
-import TrandingFaq from '@/components/TrandingFaq';
-import Provider from '@/components/Provider';
+import { Metadata } from 'next';
 
+import HomeClient from "@/components/pages/HomeClient";
 
+type Props = {
+  params: { slug: string };
+};
 
-  // Loading providers
-  const queryHome = qs.stringify({        
-    populate: {
-      sportbody: { populate: '*' },    
-      mainslider: { populate: '*' },   
-      Featuregame: { populate: '*' }, 
-      faqbody: { populate: '*' }, 
-    },    
-    sort: ['updatedAt:desc'],
-    status: 'published',
-    locale: ['en'],
+  // Fetch specific game data from Strapi using the slug
+  const queryMata = qs.stringify({
+    populate: '*',
   }, { encodeValuesOnly: true });
 
+export async function generateMetadata(): Promise<Metadata> {
+
+  try {
+    
+    const responseMata = await strapiFetch(`mastersetting?${queryMata}`);
+    const dataMata = responseMata.data;
+
+    return {
+      title: dataMata?.title || "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home",
+      keywords: dataMata?.meta_keyword,
+      description: dataMata?.meta_discription,     
+      verification: {
+        google: dataMata?.google_tagid || "zUiqPXfp8HqGluXdEn54TLZzkqpVLD7EGRL5Am_1pTA",
+      },
+      openGraph: {
+        title: dataMata?.title,
+        description: dataMata?.meta_discription,
+        images: dataMata?.meta_image?.url ? [dataMata.meta_image.url] : [],
+      },
+    };
+
+  } catch (error) {
+    console.error("Metadata fetch error:", error);
+    return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+  }
+
+
+}
+
       
-export default function Home() { 
+export default async function Home() { 
 
  
-  const [data, setData] = useState<any>(null);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-          // AbortController is good practice for "one-time" fetches to prevent memory leaks
-          const controller = new AbortController();
-      
-          async function fetchData() {
-            try {
-				
-                const qeryResponce = `landingpage?${queryHome}`;
-                const  response = await strapiFetch(qeryResponce);
-              
-              if (response?.data) {
-                setData(response);
-              }
-
-            } catch ({err}:any) {
-              if (err.name !== 'AbortError') {
-                console.error("Fetch error:", err);
-                setError(true);
-              }
-            }
-          }
-      
-          fetchData();
-          return () => controller.abort();
-        }, []);
-  
-  
-    // 2. Handling states for React 19
-    if (error) return null; // Or a simple error message
-    if (!data) return <div className="p-4 text-center">Loading...</div>;
-
-    const sliderImages = data?.data.mainslider;
-    const sportbodyImages = data?.data.sportbody;
-    const featuregame = data?.data.Featuregame;
-    const faqgame = data?.data.faqbody;
-    //const { title, mainslider, sportbody} = homeList?.data;
-    //console.log("data : ", data?.data); 
-    //console.log(" mainslider : ", sliderImages);
-    //console.log(" sportbody : ", sportbodyImages);
-    //console.log(" featuregame : ", featuregame);
+   const responseMata = await strapiFetch(`landingpage?${queryMata}`);
+  const dataMata = responseMata.data;
 
 return (
-          <>
-
-                  {/* Hero Banner */}
-                  <Herobanner slides={sliderImages || []}/>
-
-                  {/* Featured Games */}
-                  <Featuredgames ftrgame={featuregame || []}/>
-
-                  {/* Casino & Sports */}
-                  <Sports />
-
-                  {/* Live Casino */}
-                  <TrandingGame/>
-
-                  {/* Live Casino */}
-                  <TrandingSport/>
-
-                  {/* Live Casino */}
-                  <LiveCasino/>                   
-
-                  {/* Live Sports */}
-                  <CasinoBets />
-                    
-                  {/* Slots */}
-                  <Slots/>
-
-                  {/* TrandingFaq */}
-                  {                    
-                    faqgame && ( <TrandingFaq faqitem={faqgame}/>)
-                  }                 
-
-                  {/* Provider Logos */}
-                  <div className="providers">
-                    <Provider Classname="provider-logo"/> 
-                  </div>
-                      
-
+          <>                 
+             <HomeClient  pageTitle={dataMata?.meta_tag}  description={dataMata?.meta_discrp}  /> 
           </>    
   )
   //return <GamingLandingPage />

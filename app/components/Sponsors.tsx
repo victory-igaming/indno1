@@ -50,7 +50,7 @@ export default function Sponsors() {
   if (data.length === 0) return null;
 
   return (
-    <div className="card">
+    <div className="card hidden lg:block">
       <h3 className="card-title text-xl font-bold mb-4">Sponsors</h3>
       <div className="sponsors-grid">
         {/* Note: Ensure Carousel is compatible with React 19 Ref standards */}

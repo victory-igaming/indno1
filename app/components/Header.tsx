@@ -85,48 +85,54 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
   };
 
 
-  const handlePlayButton = ({e}:any) => {
+const handlePlayButton = (e: any) => { 
+  if (e && e.preventDefault) {
     e.preventDefault();
-    if (query.trim()) {
-      // Redirects to /blog with the search query as a URL parameter
-      router.push(`/search?search=${encodeURIComponent(query)}`);
-      setQuery("");
-      setIsSearchOpen(false);
-    }
-  };
+  }
+
+  if (query.trim()) {
+    router.push(`/search?search=${encodeURIComponent(query)}`);
+    setQuery("");
+    setIsSearchOpen(false);
+  } else {
+    setIsSearchOpen(!isSearchOpen);
+  }
+};
+
 
   const handleOpenSite = () => {
     // window.open(URL, Target, Features)
     // '_blank' opens the link in a new tab
     // 'noopener,noreferrer' is a security best practice
-    window.open("https://4498.indno1f.com", "_blank", "noopener,noreferrer");
+   // window.open("https://4498.indno1f.com", "_blank", "noopener,noreferrer");
+   router.push(`/playnow`);
   };
   
   return (
      <header className="header">
           <div className="header-content">
 
-                    
-
-
             <div className="logo-section">
               <Link  href="/">
               <div className="logo">
                 <NextImage 
-        src="/images/logo1.png" 
-        alt="Indno1 Company Logo" 
-        title='Most Trusted<br/>Gaming & Betting<br/>Website'
-        width={60} 
-        height={60} 
-        style={{height:'auto'}}
-        unoptimized 
-        loading="lazy"
-      /></div></Link>
+                  src="/images/logo1.png" 
+                  alt="Indno1 Company Logo" 
+                  title='Most Trusted<br/>Gaming & Betting<br/>Website'
+                  width={60} 
+                  height={60} 
+                  style={{height:'auto'}}
+                  unoptimized 
+                  loading="lazy"
+                /></div></Link>
               <div>
              
-                <h1 className="logo-subtitle hidden sm:block">Most Trusted<br/>Gaming & Betting<br/>Website</h1>
+                <div className="logo-subtitle hidden md:block">Most Trusted<br/>Gaming & Betting<br/>Website</div>
               </div>
             </div>
+
+
+               {/* Middle: Nav (Hidden on mobile as per your logic) */}
             {!isMobile && (
 <nav className={`nav-container ${isMenuOpen ? 'nav-open' : 'nav-closed'}`}>
               <ul className="nav-menu">
@@ -187,7 +193,8 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
             </nav>
 
             )}
-  
+
+               {/* Middle: Nav (Hidden on mobile as per your logic) */}  
             {isMobile && (
             <nav className={`nav-container ${isMenuOpen ? 'nav-open' : 'nav-closed'}`}>
               <ul className="nav-menu">
@@ -243,6 +250,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                
               </ul>
 
+           
                { isMobile && (
               <div className=" menu-btm grid grid-cols-2 justify-self-end gap-6 mx-4">
 
@@ -255,8 +263,9 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       autoFocus={isSearchOpen}
+                      suppressHydrationWarning
                     />
-                    <span className="search-icon cursor-pointer" onClick={() => setIsSearchOpen(!isSearchOpen)}><SearchIcon /></span>
+                    <span className="search-icon cursor-pointer"  onClick={(e) => handlePlayButton(e)} suppressHydrationWarning><SearchIcon /></span>
                     </form>                
                   </div>
 
@@ -278,13 +287,11 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
               
             </nav>
 
-               )}
+               )}    
 
-             {/* Mobile Menu Toggle Button */}
-            <button  className="lg:hidden p-2 text-white mobIcon" onClick={() => setIsMenuOpen(!isMenuOpen)} >
-              {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-            </button>   
-
+                 
+           
+              
 
             <div className="header-actions">
                   {!isMobile && (
@@ -297,57 +304,36 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   autoFocus={isSearchOpen}
-                  
+                  suppressHydrationWarning
                 />
-                <span className="search-icon cursor-pointer" onClick={() => setIsSearchOpen(!isSearchOpen)}><SearchIcon /></span>
+                <span className="search-icon cursor-pointer" onClick={(e) => handlePlayButton(e)} suppressHydrationWarning><SearchIcon /></span>
                 </form>
               </div>
                   )}
 
-              <button className="play-now-btn" onClick={handleOpenSite}>PLAY NOW</button>
+              <button className="play-now-btn headerplay-btn" onClick={(e) => handlePlayButton(e)}  suppressHydrationWarning>PLAY NOW</button>
 
-              <div className='header-button grid grid-cols-2 justify-items-end gap-6 mx-4 my-4 pt-[20px] pl-[10px] lg:block' style={{marginTop: '14px', paddingLeft: '20px'}}>
-                
-                {/* Google Play Button */}
+              {/* MATCHING THE IMAGE: Register Button */}
+              <Link  href="/dowloadapp"> <button className="mobDownIcon" type="button" suppressHydrationWarning >  Download App </button> </Link>
 
-                <button className="download-now-btn download-andrd" type='button' onClick={() => handleClick(qrData.android)} >
-                  <img 
-                    src="/images/playstore.png" 
-                    alt="Get it on Google Play" 
-                    className="h-10 object-contain"      
-                  />
-                </button>
+              {/* Mobile Menu Toggle Button */}
+              <button  className="lg:hidden p-2 text-white mobIcon" onClick={(e) => handlePlayButton(e)} suppressHydrationWarning>
+                {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+              </button>
 
-                {/* Apple Store Button */}
-                <button className="download-now-btn download-iso" type='button' onClick={() => handleClick(qrData.ios)} >
-                  <img 
-                    src="/images/appstore.png" 
-                    alt="Get it on Google Play" 
-                    className="h-10 object-contain"      
-                  />
-                </button>
-</div>
+              </div>   
 
-
-               { /* !isMobile && (
-              <div className="flag-icon">
-                <NextImage 
-        src="/images/en.png" 
-        alt="Ind No 01 Logo" 
-        width={60} 
-        className="w-37.5 h-auto"
-        priority
-        height={60} 
-        style={{height:'auto'}}
-      />
-              </div>
-                  ) */}
+             
+             
 
 
             </div>
-          </div>
 
 
+          
+
+
+     
 
           {/* The Popup Overlay */}
          {activeQr && (
@@ -361,6 +347,7 @@ const handleClick = (item: { code: string; downloadUrl: string }) => {
             <button 
               onClick={() => setActiveQr(null)} // Reset to null to close
               className="mt-2 text-sm text-gray-500 underline"
+              suppressHydrationWarning
             >
               Close
             </button>

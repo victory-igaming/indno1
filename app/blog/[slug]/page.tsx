@@ -1,14 +1,67 @@
 import React from "react";
-import { getStrapiMedia, strapiFetch } from "../../services/strapi";
-import ArticalCard from "../../components/blocks/ArticalCard";
-import ImgLftCard from "../../components/blocks/ImgLftCard";
-import ImgRthCard from "../../components/blocks/ImgRthCard";
-import Faqcard from "../../components/blocks/Faqcard";
-import TipwarnCard from "../../components/blocks/TipwarnCard";
-import TipsuccessCard from "../../components/blocks/TipsuccessCard";
-import TipdangerCard from "../../components/blocks/TipdangerCard";
+import { getStrapiMedia, strapiFetch } from "@/services/strapi";
+import ArticalCard from "@/components/blocks/ArticalCard";
+import ImgLftCard from "@/components/blocks/ImgLftCard";
+import ImgRthCard from "@/components/blocks/ImgRthCard";
+import Faqcard from "@/components/blocks/Faqcard";
+import TipwarnCard from "@/components/blocks/TipwarnCard";
+import TipsuccessCard from "@/components/blocks/TipsuccessCard";
+import TipdangerCard from "@/components/blocks/TipdangerCard";
 import qs from "qs";
 import Link from "next/link";
+
+
+
+import { Metadata } from 'next';
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}): Promise<Metadata> {
+   
+
+  const { slug } = await params;
+
+    const queryMata = qs.stringify({
+      filters: {
+    seoUrl: { // Make sure this matches your Strapi field name (case-sensitive)
+      $eq: slug,
+    },
+  },
+    populate: '*',
+  }, { encodeValuesOnly: true });
+
+
+     try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        const responseMata = await strapiFetch(`blogs?${queryMata}`);     
+       // const dataMata = responseMata.data; 
+        const dataMata = responseMata.data?.[0]; 
+        return {
+          title: dataMata?.heading || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,     
+          verification: {
+            google: dataMata?.google_tagid || process.env.META_GGTAG,
+          },
+          openGraph: {
+            title: dataMata?.heading,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
+
+
+
 
 /** ✅ Sidebar components styled like article section */
 function SidebarBox({
@@ -55,9 +108,11 @@ export default async function BlogDetails({ params }: {
     "support.artical": ArticalCard,
     "support.image-left": ImgLftCard,
     "support.image-right": ImgRthCard,
+    "support.faq": Faqcard,  
     "block.tipwarn": TipwarnCard,
     "block.tipsuccess": TipsuccessCard,
     "block.tipdanger": TipdangerCard,
+    
   } as const;
 
 const { slug } = await params;

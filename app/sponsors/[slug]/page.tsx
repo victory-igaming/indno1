@@ -5,9 +5,60 @@ import ImgRthCard from "@/components/blocks/ImgRthCard";
 import TipwarnCard from "@/components/blocks/TipwarnCard";
 import TipsuccessCard from "@/components/blocks/TipsuccessCard";
 import TipdangerCard from "@/components/blocks/TipdangerCard";
+import Faqcard from "../../components/blocks/Faqcard";
 import qs from "qs";
 
 export const revalidate = 60;
+
+import { Metadata } from 'next';
+
+ const gameId = `ltu5pmvk3ks0ztofpmsj74ih`;
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}): Promise<Metadata> {
+   
+
+  const { slug } = await params;
+
+    const queryMata = qs.stringify({
+      filters: {
+    seourl: { // Make sure this matches your Strapi field name (case-sensitive)
+      $eq: slug,
+    },
+  },
+    populate: '*',
+  }, { encodeValuesOnly: true });
+
+
+     try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        const responseMata = await strapiFetch(`sponsors?${queryMata}`);     
+       // const dataMata = responseMata.data; 
+        const dataMata = responseMata.data?.[0]; 
+        return {
+          title: dataMata?.meta_title || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,     
+          verification: {
+            google: dataMata?.google_tagid || process.env.META_GGTAG,
+          },
+          openGraph: {
+            title: dataMata?.meta_title,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
 
 
 export default async function SponsorDetails({ 
@@ -16,16 +67,19 @@ export default async function SponsorDetails({
   params: Promise<{ slug: string }> 
 }) {
 
- const gameId = `ltu5pmvk3ks0ztofpmsj74ih`;
+
 
   const COMPONENT_MAP = {
     "support.artical": ArticalCard,
     "support.image-left": ImgLftCard,
     "support.image-right": ImgRthCard,
+    "support.faq": Faqcard,  
     "block.tipwarn": TipwarnCard,
     "block.tipsuccess": TipsuccessCard,
-    "block.tipdanger": TipdangerCard,    
+    "block.tipdanger": TipdangerCard, 
+     
   };
+
 const { slug } = await params;
  console.log(slug);
 
@@ -37,7 +91,9 @@ const query = qs.stringify({
   },
   populate: {
     heroimage : { populate: '*' },
-    bodysponce : { populate: '*' },    
+    gamecategoties : { populate: '*' },  
+    bodysponce : { populate: '*' },
+    playgames : { populate: '*' },
   },
 }, { encodeValuesOnly: true });
 
@@ -54,7 +110,7 @@ const response = await strapiFetch(finalUrl);
     return <div>Not found</div>;
   }
 
-  const { name, description, logo, heroimage, bodysponce } = sponsor;
+  const { name, description, logo, heroimage, gamecategoties, bodysponce, playgames } = sponsor;
 
   /* ================================
      FIX 4: heroimage fallback → logo

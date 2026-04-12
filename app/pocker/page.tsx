@@ -11,10 +11,49 @@ import TipwarnCard from "../components/blocks/TipwarnCard";
 import TipsuccessCard from "../components/blocks/TipsuccessCard";
 import TipdangerCard from "../components/blocks/TipdangerCard";
 
-import qs from "qs";
+import { Metadata } from 'next';
+import qs from 'qs';
+
+  // Fetch specific game data from Strapi using the slug
+  const queryMata = qs.stringify({
+    populate: '*',
+  }, { encodeValuesOnly: true });
+
+
+    const gameId = `f7diouao34mb9lbv8zcbcq8y`;
+
+    
+    export async function generateMetadata(): Promise<Metadata> {
+    
+      try {
+          
+       // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+                const responseMata = await strapiFetch(`gamepages/${gameId}?${queryMata}`);     
+                const dataMata = responseMata.data;  
+                return {
+                 title: dataMata?.meta_title ? dataMata?.meta_title : process.env.META_TITLE,
+          keywords: dataMata?.meta_tag ? dataMata?.meta_tag : process.env.META_KEYWD,
+          description: dataMata?.meta_discrp ?  dataMata?.meta_discrp :  process.env.META_DISCRP,     
+          verification: {
+            google: dataMata?.google_tagid ?  dataMata?.google_tagid : process.env.META_GGTAG,
+          },
+          openGraph: {
+            title: dataMata?.meta_title ?  dataMata?.meta_title  : process.env.META_TITLE,
+            description: dataMata?.meta_discrp ? dataMata?.meta_discrp :  process.env.META_DISCRP, 
+                    images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+                  },
+                };
+      
+        } catch (error) {
+          console.error("Metadata fetch error:", error);
+          return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+        }
+    
+    }
+    
 
 export default async function GameCate() {
-  const gameId = `f7diouao34mb9lbv8zcbcq8y`;
+
 
   const COMPONENT_MAP = {
     "support.artical": ArticalCard,

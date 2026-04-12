@@ -15,7 +15,7 @@ const ChevronLeft = () => (
 );
 
 
-const GameSlots = ({ id,title, image, seourl, description }: any) => {
+const GameSlots = ({ id,title, image, seourl, imageicon }: any) => {
 
 const comTitle = `${title}  Indno 01 games`;
 const imageField = image;

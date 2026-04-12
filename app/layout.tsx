@@ -12,18 +12,17 @@ import Footer from './components/Footer';
 import TrustpilotWidget from './components/TrustpilotWidget';
 // import {LiveChat , ChatButton} from '@/components/LiveChatWidget';
 
+import LayoutWrapper from "./components/LayoutWrapper";
+
 export const metadata: Metadata = {
 
   metadataBase: new URL("https://indno1.win"),
-
   title: {
-    default: "IND NO1 - Most Trusted Gaming & Betting Website",
-    template: "%s | IND NO1 - Most Trusted Gaming",
+    default: "IND NO1 – Top Online Games, Big Wins &amp; Instant Play",
+    template: "%s ",
   },
-
   description:
     "IND NO1 is a leading enterprise dedicated to delivering top-tier gaming experiences specifically tailored for the Indian market.",
-
   keywords: [
     "Trusted Gaming",
     "Betting Website",
@@ -32,17 +31,22 @@ export const metadata: Metadata = {
     "Entertainment",
     "Gaming Experiences",
     "iGaming",
+    "betting app",
+    "betting exchange",
+    "betting exchange app",
+    "betting exchange login",
+    "online betting app",
+    "cricket betting",
+    "sport betting"
   ],
-
   verification: {
     google: "zUiqPXfp8HqGluXdEn54TLZzkqpVLD7EGRL5Am_1pTA",
   },
-
   openGraph: {
     type: "website", 
     url: "https://indno1.win",
     siteName: "IND NO1",
-    title: "IND NO1 - Most Trusted Gaming & Betting Website",
+    title: "IND NO1 – Top Online Games, Big Wins &amp; Instant Play",
     description:
       "IND NO1 is a leading enterprise dedicated to delivering top-tier gaming experiences specifically tailored for the Indian market.",
 
@@ -58,7 +62,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "IND NO1 - Most Trusted Gaming & Betting Website",
+    title: "IND NO1 – Top Online Games, Big Wins &amp; Instant Play",
     description:
       "IND NO1 is a leading enterprise dedicated to delivering top-tier gaming experiences specifically tailored for the Indian market.",
     images: ["https://indno1.win/images/logo1.png"],
@@ -77,7 +81,7 @@ export default function RootLayout({
 
         
           <meta name="google-site-verification" content="zUiqPXfp8HqGluXdEn54TLZzkqpVLD7EGRL5Am_1pTA" />
-    <Script id="gtm-script" strategy="afterInteractive">
+    <Script id="gtm-script" strategy="lazyOnload">
   {`
     (function(w,d,s,l,i){w[l]=w[l]||[];
     w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
@@ -93,14 +97,7 @@ export default function RootLayout({
       </head>
       <body>
          {/* GTM Noscript */}
-    <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-NN4XX7MT"
-        height="0"
-        width="0"
-        style={{ display: "none", visibility: "hidden" }}
-      ></iframe>
-    </noscript>
+    
 
         <div className="gaming-container">
 
@@ -113,28 +110,15 @@ export default function RootLayout({
             <div className="main-layout">
 
                {/* Sidebar */}
-                <aside className="sidebar">
-
-                  {/* Sponsors */}
-                  <Sponsors/>
-
-                  {/* Navigation */}
-                  <Sidebar/>
-
-                  {/* Deposit Bonus */}
-                  <LotteryCard/>
-
-                  {/* Deposit Bonus */}
-                  <Application/>
-
-                </aside>
-
-
-                {/* Main Content */}
-                <main className="main-content">                  
-                  {children}
-                </main>
-                 
+                <LayoutWrapper
+                        sidebar={
+                          <>
+                            <Sponsors />
+                            <Sidebar />
+                            <LotteryCard />
+                            <Application />
+                          </>
+                        } > {children} </LayoutWrapper>
 
             </div>
 
@@ -151,9 +135,9 @@ export default function RootLayout({
    {/* Google Analytics */}      
 <Script
   src="https://www.googletagmanager.com/gtag/js?id=G-N7FZYSKQT1"
-  strategy="afterInteractive"
+  strategy="lazyOnload"
 />
-<Script id="google-analytics" strategy="afterInteractive">
+<Script id="google-analytics" strategy="lazyOnload">
   {`
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -163,7 +147,7 @@ export default function RootLayout({
 </Script>
 <Script
   src="https://plugin-code.salesmartly.com/js/project_628963_648909_1770891882.js"
-  strategy="afterInteractive"
+  strategy="lazyOnload"
 />
 
         </body>

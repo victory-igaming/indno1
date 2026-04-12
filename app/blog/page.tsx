@@ -1,14 +1,43 @@
 
 
 
-import { strapiFetch, getStrapiMedia } from "../services/strapi";
-import BlogList from '../components/blocks/BlogPost';
+import { strapiFetch, getStrapiMedia } from "@/services/strapi";
+import BlogList from '@/components/blocks/BlogPost';
 import Link from 'next/link';
 import qs from 'qs';
 import BlogsClient from "@/components/BlogClient";
 
 
 
+import { Metadata } from 'next';
+export async function generateMetadata({params}: {params: Promise<{ slug: string }>}): Promise<Metadata> {
+
+  try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        const responseMata = await strapiFetch(`blogs?populate=*`);     
+       // const dataMata = responseMata.data; 
+        //console.log("responseMata : ",responseMata);
+        const dataMata = responseMata.data?.[0]; 
+        //console.log("dataMata : ",dataMata);
+
+        return {
+          title: dataMata?.name || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,           
+          openGraph: {
+            title: dataMata?.name,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
 
 
 
@@ -83,6 +112,8 @@ const blogCategory = categories?.map((item: any) => ({
 /* */
  return (
           <>
+          
+
           {/* Category Filter */}
            <BlogsClient categories={blogCategory} blogbody={blogs} pagination={pagination} currentPage={currentPage} />
          
@@ -99,8 +130,9 @@ const blogCategory = categories?.map((item: any) => ({
                 className="newsletter-input"
                 placeholder="Enter your email address"
                 required
+                suppressHydrationWarning
               />
-              <button type="submit" className="newsletter-btn">Subscribe Now</button>
+              <button type="submit" className="newsletter-btn" suppressHydrationWarning>Subscribe Now</button>
             </form>
           </div>   
          

@@ -3,12 +3,12 @@
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
 
-const ArticalCard = ({name,description }: any) => {
+const ArticalCard = ({title,description }: any) => {
 
   return (
      <>
       <div className="mb-2.5" >
-          <h2>{name}</h2>         
+          <h2>{title}</h2>         
 
 
     <BlocksRenderer 

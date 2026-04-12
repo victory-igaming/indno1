@@ -21,7 +21,7 @@ export default function FeaturedGames({ ftrgame }: { ftrgame: any[] }) {
               {ftrgame.map((ftrgame, i) => {
                 const linkurlpath = ftrgame.linkurl ? ftrgame.linkurl:'/';
                 return (                
-                  <div key={i} className="game-card">
+                  <div key={i} className={`game-card ${i === 3 ? "md:hidden lg:block" : ""}`}>
                       <Link href={linkurlpath}>  
                         <div className={`game-bg`} >           
                           <NextImage 

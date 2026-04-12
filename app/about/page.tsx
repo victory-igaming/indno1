@@ -1,9 +1,9 @@
 
-import { strapiFetch } from "../services/strapi";
-import StarCard  from "../components/blocks/Starcard";
-import ValueCard  from "../components/blocks/Valuecard";
-import journeyCard  from "../components/blocks/Journeycard";
-import EmployeCard  from "../components/blocks/Employecard";
+import { strapiFetch } from "@/services/strapi";
+import StarCard  from "@/components/blocks/Starcard";
+import ValueCard  from "@/components/blocks/Valuecard";
+import journeyCard  from "@/components/blocks/Journeycard";
+import EmployeCard  from "@/components/blocks/Employecard";
 import qs from 'qs';
 
  const stats = [
@@ -42,6 +42,42 @@ const COMPONENT_MAP = {
   "block.journey-card": journeyCard,
   "support.employecard": EmployeCard,
 };
+
+
+import { Metadata } from 'next';
+export async function generateMetadata({params}: {params: Promise<{ slug: string }>}): Promise<Metadata> {
+
+    const queryMata = qs.stringify({
+      populate: '*',
+    }, { encodeValuesOnly: true });
+
+     try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        const responseMata = await strapiFetch(`aboutus?${queryMata}`);     
+       // const dataMata = responseMata.data; 
+        //console.log("responseMata : ",responseMata);
+        const dataMata = responseMata.data; 
+        //console.log("dataMata : ",dataMata);
+
+        return {
+          title: dataMata?.name || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,           
+          openGraph: {
+            title: dataMata?.name,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
+
 
 export default async function Aboutus() { 
      //const articles = await getArticles();

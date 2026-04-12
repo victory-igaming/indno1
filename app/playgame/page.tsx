@@ -7,6 +7,44 @@ import Link from 'next/link';
 import qs from 'qs';
 import GameSlots from '@/components/blocks/GameSlots';
 
+
+
+import { Metadata } from 'next';
+export async function generateMetadata({params}: {params: Promise<{ slug: string }>}): Promise<Metadata> {
+
+   const queryMata = qs.stringify({
+      populate: '*',
+    }, { encodeValuesOnly: true });
+
+  try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        //const responseMata = await strapiFetch(`blogs?populate=*`); 
+         const responseMata = await strapiFetch(`playgames?${queryMata}`);      
+       // const dataMata = responseMata.data; 
+        //console.log("responseMata : ",responseMata);
+        const dataMata = responseMata.data?.[0]; 
+        //console.log("dataMata : ",dataMata);
+
+        return {
+          title: dataMata?.meta_title || process.env.META_TITLE,
+          keywords: dataMata?.meta_tag || process.env.META_KEYWD,
+          description: dataMata?.meta_discrp || process.env.META_DISCRP,           
+          openGraph: {
+            title: dataMata?.meta_title,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.gamebanner?.url ? [dataMata.gamebanner.url] : [],
+          },
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
+
+
 export default async function Playgames() { 
 
 // Loading Category

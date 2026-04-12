@@ -24,18 +24,29 @@ const ChevronRight = () => (
     { id: 'fishing', label: 'Fishing', icon: '🎣', image: '/sideicon/fishing.png' , href:'/fishing' },
   ];    
 
+
+  function useHasMounted() {
+  const [hasMounted, setHasMounted] = React.useState(false);
+  React.useEffect(() => { setHasMounted(true); }, []);
+  return hasMounted;
+}
+
 export default function Sidebar() {
 
   const [activeSection, setActiveSection] = useState('hot');
   
+  
   return (
   
-      <>
-     {/* Navigation */}
+      < >
+     
+            {/* Dsktop / Laptop  */}
+            <div className="hidden md:block">
             {sidebarItems.map((item) => (
               <Link href={item.href} key={item.id}><button
                 key={item.id}
                 onClick={() => setActiveSection(item.id)}
+                suppressHydrationWarning
                 className={`nav-btn ${activeSection === item.id ? 'nav-btn-active' : 'nav-btn-inactive'}`}
               >
                 
@@ -43,9 +54,45 @@ export default function Sidebar() {
 
                 {/* <span className="nav-icon">{item.icon}</span> */}
                 {item.label}
-                <span className="nav-chevron"><ChevronRight /></span>
+                <span className="nav-chevron" ><ChevronRight /></span>
               </button></Link> 
-            ))}          
+            ))} 
+        </div>
+
+                 
       </>
   )
+}
+
+
+
+export function SideMobilebar() {
+
+    const [activeSection, setActiveSection] = useState('hot');
+    return (<>
+    
+    {/* Mobile Bottom Menu */}
+            <div className="sidebarMobile fixed bottom-0 left-0 right-0 bg-[#311407]  flex justify-around items-center py-2 z-50 lg:hidden">
+              {sidebarItems.slice(0,5).map((item) => (
+                <Link href={item.href} key={item.id}>
+                  <button
+                    onClick={() => setActiveSection(item.id)}
+                    className="flex flex-col items-center text-xs text-white"
+                  >
+                    {item.image && (
+                      <NextImage
+                        src={item.image}
+                        alt={item.label}
+                        width={33}
+                        height={33}
+                        unoptimized
+                      />
+                    )}
+                    <span className="text-[10px] mt-2 pt-2" style={{marginTop:'10px'}}>{item.label}</span>
+                  </button>
+                </Link>
+              ))}
+            </div>   
+    
+    </>)
 }

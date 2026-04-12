@@ -37,9 +37,9 @@ export default function BlogsClient({ categories, blogbody, pagination, currentP
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredBlogs = activeCategory === "all" ? blogbody: blogbody.filter((faq: any) => faq.gamecategoty?.id === activeCategory);
-console.log("activeCategory : ",activeCategory);
-console.log("categories : ",categories);
-console.log("blogbody : ",blogbody);
+//console.log("activeCategory : ",activeCategory);
+//console.log("categories : ",categories);
+//console.log("blogbody : ",blogbody);
   return (
     <>
       {/* Categories */}
@@ -50,6 +50,7 @@ console.log("blogbody : ",blogbody);
           } `}
           
           onClick={() => setActiveCategory("all")}
+          suppressHydrationWarning
         >
           All
         </button>
@@ -60,6 +61,7 @@ console.log("blogbody : ",blogbody);
             className={`${
               activeCategory === cat.id ? "category-btn-active " : "category-btn"
             }`}
+            suppressHydrationWarning
             onClick={() => setActiveCategory(cat.id)}
           >
             {cat.title}

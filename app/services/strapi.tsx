@@ -1,4 +1,4 @@
-import qs from "qs";
+import qs from "qs"; 
 
 /**
  * ============================================================
@@ -13,7 +13,7 @@ const rawBaseUrl =
 const baseUrl = rawBaseUrl.replace(/\/+$/, "");
 
 // Private token (ONLY used for protected endpoints)
-const TOKEN = process.env.API_TOKEN_SALT;
+const TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
 /**
  * ============================================================
@@ -204,3 +204,187 @@ export async function getAllCategories() {
     return [];
   }
 }
+
+
+
+/**
+ * ============================================================
+ * GAME PLAY TRACKING
+ * ============================================================
+ */
+
+export async function startGamePlay(phone: string, gamename: string,ip: string) {
+  try {
+    const res = await fetch(`${baseUrl}/api/game-play-tracks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({
+        data: {
+          phone: phone,
+          game_name: gamename,
+          play_start: new Date().toISOString(),
+          ip_address: ip,
+        },
+      }),
+    });
+
+    //const text = await res.text();
+    //console.log("startGamePlay response:", res.status, text);
+
+    if (!res.ok) {
+      console.error("Failed to start game play");
+      return null;
+    }
+
+    const json = await res.json();
+    return json?.data ?? null;
+
+  } catch (error) {
+    console.error("startGamePlay error:", error);
+    return null;
+  }
+}
+
+
+
+
+/**
+ * END GAME PLAY
+ */
+
+export async function endGamePlay(id: number, duration: number) {
+  try {
+    const res = await fetch(`${baseUrl}/api/game-play-tracks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({
+        data: {
+          play_end: new Date().toISOString(),
+          duration: duration,
+        },
+      }),
+    });
+    console.log("endGame.PlayplayId.current", id);
+    const text = await res.text();
+    console.log("endGamePlay response:", res.status, text);
+
+    if (!res.ok) {
+      console.error("Failed to update play record");
+      return null;
+    }
+
+    const json = await res.json();
+    return json?.data ?? null;
+
+  } catch (error) {
+    console.error("endGamePlay error:", error);
+    return null;
+  }
+}
+
+
+
+/**
+ * ============================================================
+ * Spring Wheel TRACKING
+ * ============================================================
+ */
+
+type SpinPayload = {
+  phone: string;
+  prize_label: string;
+  amount: number;
+  spinstatus: "pending" | "claimed" | "expired";
+};
+
+export async function saveSpringWheel(payload: SpinPayload) {
+  try {
+
+    // 1️⃣ Check duplicate phone
+    const check = await fetch(
+      `${baseUrl}/api/spin-histories?filters[phone][$eq]=${payload.phone}`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+
+    const checkJson = await check.json();
+
+    if (checkJson?.data?.length > 0) {
+      console.log("Phone already used");
+      return { duplicate: true };
+    }
+
+    const res = await fetch(`${baseUrl}/api/spin-histories`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({
+        data: payload,
+      }),
+    });
+
+    const json = await res.json();
+    //console.log("SpringWheel response:", res.status, json);
+
+    if (!res.ok) {
+      console.error("Failed to start SpringWheel");
+      return null;
+    }
+
+
+    return json?.data ?? null;
+
+  } catch (error) {
+    console.error("SpringWheel error:", error);
+    return null;
+  }
+}
+
+
+/**
+ * ============================================================
+ * Spring Wheel Check Phone Number TRACKING
+ * ============================================================
+ */
+
+
+export async function varifySpringMobile(phone: string) {
+  try {
+
+    // 1️⃣ Check duplicate phone
+    const check = await fetch(
+      `${baseUrl}/api/spin-histories?filters[phone][$eq]=${phone}`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+
+    const checkJson = await check.json();
+
+    if (checkJson?.data?.length > 0) {
+      console.log("Phone already used");
+      return { duplicate: true };
+    }   
+
+    return null;
+
+  } catch (error) {
+    console.error("SpringWheel Tel. error:", error);
+    return null;
+  }
+}
+
+

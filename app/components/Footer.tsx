@@ -12,7 +12,6 @@ import GallerySection from '@/components/blocks/FooterGallery';
 ['🌐', '𝕏', 'f', '📷', '📺', '💬', '📱']
 
 
-
   const casinoFooterItems = [
     { id: '1', label: 'Aviator',  href:'/playgame/aviator' },
     { id: '2', label: 'Cricket', href:'/playgame/cricket' },
@@ -28,17 +27,16 @@ import GallerySection from '@/components/blocks/FooterGallery';
     { id: '3', label: 'Sport Sponsors', href:'/sport/sport-sponsors' },
     { id: '4', label: 'Live Scores', href:'/sport/live-sport' },
    
-  ];   
-
+  ];
 
   const suportFooterItems = [
     { id: '1', label: 'VIP Club',  href:'/support/vip-club' },
     { id: '2', label: 'Referral', href:'/support/referral' },
-    { id: '3', label: 'Community', href:'/support/community' },
+    { id: '3', label: 'Community', href:'https://support.indno1.win' },
     { id: '4', label: 'Refer a friend', href:'/support/refer-a-friend' },
     { id: '5', label: 'How to Play', href:'/support/how-to-play' },
     { id: '6', label: 'Payment Methods', href:'/support/payment-methods' },
-  
+    { id: '7', label: 'Promotions', href:'/support/promotions' },
   ];  
 
 

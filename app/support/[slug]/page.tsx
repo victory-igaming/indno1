@@ -14,6 +14,57 @@ import TipsuccessCard  from "../../components/blocks/TipsuccessCard";
 import TipdangerCard  from "../../components/blocks/TipdangerCard";
 
 import qs from 'qs';
+import { Metadata } from 'next';
+
+const gameId = `ltu5pmvk3ks0ztofpmsj74ih`;
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}): Promise<Metadata> {
+   
+
+  const { slug } = await params;
+
+    const queryMata = qs.stringify({
+      filters: {
+    seourl: { // Make sure this matches your Strapi field name (case-sensitive)
+      $eq: slug,
+    },
+  },
+    populate: '*',
+  }, { encodeValuesOnly: true });
+
+
+     try {
+         
+        // const responseMata = await strapiFetch(`gamepages?${queryMata}`);
+        const responseMata = await strapiFetch(`footerpages?${queryMata}`);     
+        // const dataMata = responseMata.data; 
+       const dataMata = responseMata.data?.[0]; 
+        return {
+          title: dataMata?.meta_title ? dataMata?.meta_title : process.env.META_TITLE,
+          keywords: dataMata?.meta_tag ? dataMata?.meta_tag : process.env.META_KEYWD,
+          description: dataMata?.meta_discrp ?  dataMata?.meta_discrp :  process.env.META_DISCRP,     
+          verification: {
+            google: dataMata?.google_tagid ?  dataMata?.google_tagid : process.env.META_GGTAG,
+          },
+          openGraph: {
+            title: dataMata?.meta_title ?  dataMata?.meta_title  : process.env.META_TITLE,
+            description: dataMata?.meta_discrp,
+            images: dataMata?.topbanner?.url ? [dataMata.topbanner.url] : [],
+          },          
+        };
+     
+       } catch (error) {
+         console.error("Metadata fetch error:", error);
+         return { title: "IND NO1 - Most Trusted Gaming &amp; Betting Website - Home" };
+       }
+   
+   }
+
+
 
 export default async function BlogDetails({ 
   params 
@@ -21,7 +72,7 @@ export default async function BlogDetails({
   params: Promise<{ slug: string }> 
 }) {
 
-  const gameId = `ltu5pmvk3ks0ztofpmsj74ih`;
+
 
   const COMPONENT_MAP = {
     "support.artical": ArticalCard,
