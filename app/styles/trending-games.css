@@ -1,0 +1,164 @@
+.tg-section {
+  width: 100%;
+  padding: 10px 10px 0;
+  background: #140506;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.tg-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tg-trophy {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tg-title {
+  margin: 0;
+  color: #f5efe8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.tg-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tg-nav-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 120, 120, 0.45);
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #ff5a5a, #a30000);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(255, 70, 70, 0.15) inset;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.tg-nav-btn:hover {
+  transform: scale(1.06);
+}
+
+.tg-nav-btn:active {
+  transform: scale(0.96);
+}
+
+.tg-slider {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.tg-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.tg-card {
+  flex: 0 0 calc((100% - 28px) / 3); /* 3 cards on mobile */
+  max-width: calc((100% - 28px) / 3);
+  scroll-snap-align: start;
+}
+
+.tg-card-link {
+  display: block;
+  text-decoration: none;
+}
+
+.tg-card-image {
+  width: 100%;
+  aspect-ratio: 0.74 / 1; /* tall slot-card look */
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  background: #241010;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.06) inset,
+    0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.tg-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 2px 0;
+}
+
+.tg-coin {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.tg-amount {
+  color: #f4d88d;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tg-loading {
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+  .tg-section {
+    padding: 12px 12px 0;
+  }
+
+  .tg-card {
+    flex: 0 0 140px;
+    max-width: 140px;
+  }
+
+  .tg-title {
+    font-size: 13px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .tg-card {
+    flex: 0 0 150px;
+    max-width: 150px;
+  }
+
+  .tg-nav-btn {
+    width: 30px;
+    height: 30px;
+  }
+}

@@ -1,0 +1,355 @@
+.hot-hero {
+  width: 100%;
+  padding: 12px 0;
+}
+
+.hot-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.hot-hero__stack {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+}
+
+.hot-hero__card {
+  min-width: 0;
+}
+
+.hot-hero__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.hot-hero__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  min-height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  isolation: isolate;
+}
+
+.hot-hero__card--main .hot-hero__media {
+  min-height: 312px;
+}
+
+.hot-hero__card--small .hot-hero__media {
+  min-height: 149px;
+}
+
+.hot-hero__media--green {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(170, 255, 104, 0.18), transparent 28%),
+    linear-gradient(135deg, #0d2a2f 0%, #1f6d52 45%, #73d058 100%);
+}
+
+.hot-hero__media--purple {
+  background:
+    radial-gradient(circle at 78% 70%, rgba(255, 173, 65, 0.24), transparent 24%),
+    linear-gradient(135deg, #351e75 0%, #4927a6 48%, #7c37d7 100%);
+}
+
+.hot-hero__media--lime {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(170, 255, 104, 0.18), transparent 22%),
+    linear-gradient(135deg, #143d30 0%, #237248 45%, #79cd43 100%);
+}
+
+.hot-hero__bgPattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hot-hero__bgPattern--left {
+  background:
+    radial-gradient(circle at 22% 30%, rgba(255, 255, 255, 0.1), transparent 24%),
+    repeating-radial-gradient(
+      circle at 16% 52%,
+      rgba(255, 255, 255, 0.08) 0 2px,
+      transparent 2px 16px
+    );
+  opacity: 0.35;
+}
+
+.hot-hero__content {
+  position: absolute;
+  z-index: 3;
+  color: #fff;
+}
+
+.hot-hero__content--main {
+  top: 30px;
+  left: 28px;
+  /* width: min(43%, 330px); */
+}
+
+.hot-hero__content--small {
+  top: 30px;
+  left: 22px;
+  /* width: min(48%, 190px); */
+}
+
+.hot-hero__eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #ecf649;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hot-hero__title {
+  margin: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: #eef7f4;
+}
+
+.hot-hero__title span {
+  color: #ffd630;
+}
+
+.hot-hero__title--main {
+  font-size: clamp(2rem, 3vw, 3.45rem);
+}
+
+.hot-hero__title--small {
+  font-size: clamp(1.5rem, 1.85vw, 2.15rem);
+}
+
+.hot-hero__dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+
+.hot-hero__dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.hot-hero__dots span:first-child {
+  background: #ffd92d;
+}
+
+.hot-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hot-hero__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #0a2332 0%, #091521 100%);
+  color: #f5fffb;
+  font-size: 0.95rem;
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hot-hero__button--small {
+  min-width: 110px;
+  min-height: 40px;
+  font-size: 0.88rem;
+  margin-top: 16px;
+}
+
+.hot-hero__playIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffd83f 0%, #e8b81a 100%);
+  color: #19353b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 216, 0.7),
+    0 8px 16px rgba(0, 0, 0, 0.18);
+}
+
+.hot-hero__miniLine {
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.hot-hero__imageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hot-hero__image {
+  object-fit: contain;
+  object-repeat: no-repeat;
+}
+
+.hot-hero__image--main {
+  object-position: right bottom;
+  transform: scale(1.02);
+}
+
+.hot-hero__image--rocket {
+  object-position: right center;
+  transform: scale(0.92);
+}
+
+.hot-hero__image--parrot {
+  object-position: right center;
+  transform: scale(0.94);
+}
+
+/* tablet */
+@media (max-width: 1023px) {
+  .hot-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hot-hero__stack {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+  }
+
+  .hot-hero__card--main .hot-hero__media {
+    min-height: 280px;
+  }
+
+  .hot-hero__card--small .hot-hero__media {
+    min-height: 170px;
+  }
+
+  .hot-hero__content--main {
+    /* width: min(48%, 300px); */
+  }
+}
+
+/* mobile */
+@media (max-width: 767px) {
+  .hot-hero {
+    padding: 10px 0;
+  }
+
+  .hot-hero__grid,
+  .hot-hero__stack {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hot-hero__media {
+    border-radius: 20px;
+  }
+
+  .hot-hero__card--main .hot-hero__media {
+    min-height: 220px;
+  }
+
+  .hot-hero__card--small .hot-hero__media {
+    min-height: 160px;
+  }
+
+  .hot-hero__content--main {
+    top: 40px;
+    left: 18px;
+    width: min(56%, 220px);
+  }
+
+  .hot-hero__content--small {
+    top: 25px;
+    left: 16px;
+    /* width: min(54%, 170px); */
+  }
+
+  .hot-hero__eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+  }
+
+  .hot-hero__title--main {
+    font-size: 1.65rem;
+  }
+
+  .hot-hero__title--small {
+    font-size: 1.35rem;
+  }
+
+  .hot-hero__dots {
+    margin-top: 12px;
+    margin-bottom: 14px;
+    gap: 7px;
+  }
+
+  .hot-hero__dots span {
+    width: 8px;
+    height: 8px;
+  }
+
+  .hot-hero__button {
+    min-width: 100px;
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 0.82rem;
+  }
+
+  .hot-hero__button--small {
+    min-width: 96px;
+    min-height: 36px;
+    font-size: 0.8rem;
+    margin-top: 14px;
+  }
+
+  .hot-hero__playIcon {
+    width: 42px;
+    height: 42px;
+    font-size: 0.88rem;
+  }
+
+  .hot-hero__miniLine {
+    width: 46px;
+    margin-top: 6px;
+  }
+
+  .hot-hero__image--main {
+    object-position: right bottom;
+    transform: scale(0.94);
+  }
+
+  .hot-hero__image--rocket,
+  .hot-hero__image--parrot {
+    object-position: right center;
+    transform: scale(0.88);
+  }
+}

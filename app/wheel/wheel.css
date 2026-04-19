@@ -1,0 +1,147 @@
+/* wheel.css */
+
+.wheel-wrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: auto;
+  background-color: #2a140d; /* Dark background from reference */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 1. Outer Gold Border (Now a separate element for better alignment) */
+.wheel-gold-border {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 12px solid #ffb300;
+  pointer-events: none; /* Let clicks pass to the center button */
+  box-shadow: 0 0 20px #ffb300; /* Outer glow */
+  z-index: 1; /* Below pointer, above wheel */
+}
+
+/* 2. Wheel Container (Reduced width to fit inside border) */
+.wheel-container {
+  width: 90%; /* Fits snugly within the gold border */
+  height: 90%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background-color: #3d0d04; /* Inner background color */
+  transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+}
+
+/* 3. Pointer */
+.wheel-pointer {
+  position: absolute;
+  top: -10px; /* Aligned with gold border edge */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid gold;
+  z-index: 10;
+}
+
+/* 4. New Segment Style (OVERLAPPING BANDS) */
+.wheel-segment {
+  position: absolute;
+  width: 100%; /* Spans full diameter */
+  height: 25%; /* Thickness of the band */
+  top: 37.5%; /* Vertically centered (50% - height/2) */
+  left: 0;
+  transform-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align label to the edge */
+  overflow: visible; /* Labels stick out past band */
+}
+
+/* 5. Specific Colors and Radii from Reference */
+
+/* First band (Green-Emerald) */
+.wheel-segment:nth-child(8n+1) {
+  background: linear-gradient(135deg, #00ff9d, #00c853);
+  border-radius: 20px 0 0 20px; /* Curve one side */
+}
+
+/* Second band (Green-Teal) */
+.wheel-segment:nth-child(8n+2) {
+  background: linear-gradient(135deg, #00ff9d, #00c853);
+  border-radius: 0 20px 20px 0;
+}
+
+/* Third band (Red-Orange) */
+.wheel-segment:nth-child(8n+3) {
+  background: linear-gradient(135deg, #ff7a00, #ff0000);
+  border-radius: 20px 0 0 20px;
+}
+
+/* Fourth band (Deep Red) */
+.wheel-segment:nth-child(8n+4) {
+  background: linear-gradient(135deg, #ff4d4d, #ffcc00);
+  border-radius: 0 20px 20px 0;
+}
+
+/* Fifth band (Cyan Blue) */
+.wheel-segment:nth-child(8n+5) {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border-radius: 20px 0 0 20px;
+}
+
+/* Sixth band (Blue) */
+.wheel-segment:nth-child(8n+6) {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  border-radius: 0 20px 20px 0;
+}
+
+/* Seventh band (Cyan Blue) */
+.wheel-segment:nth-child(8n+7) {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border-radius: 20px 0 0 20px;
+}
+
+/* Eighth band (Blue) */
+.wheel-segment:nth-child(8n+8) {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  border-radius: 0 20px 20px 0;
+}
+
+/* 6. Label Position within Band */
+.segment-label {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  position: absolute;
+  right: 15px; /* Distance from outer edge */
+  font-family: sans-serif;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  /* Removed extra rotate: the band's rotation is sufficient. */
+}
+
+/* 7. Center Button */
+.wheel-center {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #ff7a00, #ff0000); /* Matched gradient from reference */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  border: 6px solid gold; /* Lighter gold for center */
+  box-shadow: 0 0 10px #ffcc00;
+  z-index: 5; /* Above wheel bands, below pointer */
+}

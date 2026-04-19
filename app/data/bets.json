@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "gameid": "Tennis",
+    "game": "Tennis' Donuts C",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 300.00,
+    "multiplier": 4.80,
+    "payout": 1440.00,
+    "status": "win"
+  },
+  {
+    "id": 2,
+    "gameid": "cricket",
+    "game": "Crash cricket",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 600.00,
+    "multiplier": 4.28,
+    "payout": 2566.84,
+    "status": "win"
+  },
+  {
+    "id": 3,
+    "gameid":  "Tennis",
+    "game": "Drac's Tennis",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 2899.87,
+    "multiplier": 0.11,
+    "payout": -2589.00,
+    "status": "loss"
+  },
+  {
+    "id": 4,
+    "gameid": "cricket",
+    "game": "Wanted Dead or a cricket",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 3000.00,
+    "multiplier": 0.08,
+    "payout": -2754.00,
+    "status": "loss"
+  },
+  {
+    "id": 5,
+    "gameid": "rugby",
+    "game": "Blackjack rugby",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 7104.00,
+    "multiplier": 0.00,
+    "payout": -7104.00,
+    "status": "loss"
+  },
+  {
+    "id": 6,
+    "gameid": "football",
+    "game": "Stake football Baccarat",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 2000.00,
+    "multiplier": 0.00,
+    "payout": -2000.00,
+    "status": "loss"
+  },
+  {
+    "id": 7,
+    "gameid":  "football",
+    "game": "football Stake Roulette",
+    "user": "Hidden",
+    "time": "2026-03-04T14:59:00",
+    "betAmount": 1364.05,
+    "multiplier": 1.10,
+    "payout": 1500.46,
+    "status": "win"
+  },
+  {
+    "id": 8,
+    "gameid": "Tennis",
+    "game": "Funkin' Donuts Tennis",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 300.00,
+    "multiplier": 4.80,
+    "payout": 1740.00,
+    "status": "win"
+  },
+  {
+    "id": 9,
+    "gameid": "cricket",
+    "game": "Crash cricket",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 600.00,
+    "multiplier": 4.28,
+    "payout": 2526.84,
+    "status": "win"
+  },
+  {
+    "id": 10,
+    "gameid":  "Tennis",
+    "game": "Drac's Stacks Tennis",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 2899.87,
+    "multiplier": 0.11,
+    "payout": -2586.00,
+    "status": "loss"
+  },
+  {
+    "id": 11,
+    "gameid": "cricket",
+    "game": "cricket Dead or a Wild",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 3000.00,
+    "multiplier": 0.08,
+    "payout": -2854.00,
+    "status": "loss"
+  },
+  {
+    "id": 12,
+    "gameid": "rugby",
+    "game": "rugby Blackjack",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 7104.00,
+    "multiplier": 0.00,
+    "payout": -9104.00,
+    "status": "loss"
+  },
+  {
+    "id": 13,
+    "gameid": "football",
+    "game": "Stake Baccarat football",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 2000.00,
+    "multiplier": 0.00,
+    "payout": -2070.00,
+    "status": "loss"
+  },
+  {
+    "id": 14,
+    "gameid":  "football",
+    "game": "football Stake Roulette",
+    "user": "Hidden",
+    "time": "2026-03-05T14:59:00",
+    "betAmount": 1364.05,
+    "multiplier": 1.10,
+    "payout": 1600.46,
+    "status": "win"
+  }
+]
